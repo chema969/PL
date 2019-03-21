@@ -4,7 +4,7 @@
 # Si se desea generar otro "ejemplo" entonces teclear 
 #            make NAME=ejemplo
 
-NAME = ejemplo0
+NAME = Ejercicio1
 
 # Directives for the compiler
 # -c: the output is an object file, the linking stage is not done.
@@ -13,7 +13,7 @@ NAME = ejemplo0
 # -ansi: standard language
 # -02: optimization level
 # -Wno-unused-function  -Wno-sign-compare -Wno-implicit-function-declaration: disabled error messages
-CFLAGS = -c -g -Wall -ansi -O2 -Wno-unused-function  -Wno-sign-compare -Wno-implicit-function-declaration
+CFLAGS = -c -g -Wall -ansi -O2 -Wno-unused-function  -Wno-sign-compare 
 
 # Directive for flex's library
 LFLAGS = -lfl 
@@ -29,11 +29,11 @@ LFLAGS = -lfl
 ##
 $(NAME).exe: $(NAME).o
 	@echo "Generating" $@
-	@gcc $< $(LFLAGS) -o $@
+	@g++ $< $(LFLAGS) -o $@
 
 $(NAME).o: lex.yy.c
 	@echo "Compiling" $< "and generating" $@
-	@gcc $(CFLAGS) $< -o $@
+	@g++ $(CFLAGS) $< -o $@
 	@echo "--> Deleting the auxilary file: lex.yy.c"
 	@rm -f lex.yy.c 
 
