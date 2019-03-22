@@ -13,7 +13,7 @@ NAME = Ejercicio1
 # -ansi: standard language
 # -02: optimization level
 # -Wno-unused-function  -Wno-sign-compare -Wno-implicit-function-declaration: disabled error messages
-CFLAGS = -c -g -Wall -ansi -O2 -Wno-unused-function  -Wno-sign-compare 
+CFLAGS = -c -g -Wall -ansi -O2 -Wno-unused-function  -Wno-sign-compare -Wno-implicit-function-declaration
 
 # Directive for flex's library
 LFLAGS = -lfl 
@@ -29,11 +29,11 @@ LFLAGS = -lfl
 ##
 $(NAME).exe: $(NAME).o
 	@echo "Generating" $@
-	@g++ $< $(LFLAGS) -o $@
+	@gcc $< $(LFLAGS) -o $@
 
 $(NAME).o: lex.yy.c
 	@echo "Compiling" $< "and generating" $@
-	@g++ $(CFLAGS) $< -o $@
+	@gcc $(CFLAGS) $< -o $@
 	@echo "--> Deleting the auxilary file: lex.yy.c"
 	@rm -f lex.yy.c 
 

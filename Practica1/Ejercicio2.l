@@ -1,6 +1,7 @@
 %{
-#include <string>
- std::string palabra1,palabra2;
+ #include <string.h>
+ char* palabra1;
+ char* palabra2;
  int palabrasSubs=0;
   /* Descripcion:
 
@@ -15,8 +16,8 @@ palabra		{letra}{letra}*
 
 %% 
 
-{palabra} {if(yytext==palabra1){fprintf(yyout,"%s",
-			 palabra2.c_str());
+{palabra} {if(strcmp(yytext,palabra1)==0){fprintf(yyout,"%s",
+			 palabra2);
 			palabrasSubs++;}
            else fprintf(yyout,"%s", yytext); }
 
@@ -26,14 +27,14 @@ palabra		{letra}{letra}*
 
 extern FILE *yyin, *yyout;
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
  
  switch(argc)
   {
    case 4:  yyin=fopen(argv[1],"r"); 
-            palabra1=argv[2];
-            palabra2=argv[3];
+            palabra1= argv[2];
+            palabra2= argv[3];
   }
   yylex();
   fprintf(yyout," Numero de palabras substituidas=%d\n",palabrasSubs);
