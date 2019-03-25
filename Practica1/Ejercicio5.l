@@ -1,12 +1,12 @@
 %{
  #include <string.h>
  #include <stdlib.h>
- char palabraClave[]="";
+ char *palabraClave;
  int* palabraClaveTransformada;
  int opcion;
  long unsigned int tamanyoPalabraClave;
  int cursorPalabraClave=0;
- char vector[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n',164,'o','p','q','r','s','t','u','v','w','x','y','z'};
+ char vector[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
  char findAndSet(char letra);
  char reverseFindAndSet(char letra);
   /* Descripcion:
@@ -17,16 +17,22 @@
 %}
 
 /* Definiciones regulares */
-letra         [a-zA-Z]
+letra         [a-z]
+letra_mayus   [A-Z]
 letra_especial (ñ|á|é|í|ó|ú|Á|É|Í|Ó|Ú)
 %% 
 
-{letra}|{letra_especial}	{if(opcion==1)
+{letra}				{if(opcion==1)
                                    {printf("%c",findAndSet(yytext[0]));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
                                  if(opcion==2){
                                    printf("%c",reverseFindAndSet(yytext[0]));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
 
-
+{letra_mayus}			{yytext[0]=tolower(yytext[0]);
+				if(opcion==1)
+                                   {printf("%c",toupper(findAndSet(yytext[0])));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",toupper(reverseFindAndSet(yytext[0])));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+				}
 
 
 %%  
@@ -36,52 +42,45 @@ extern FILE *yyin, *yyout;
 
 int main(int argc, char **argv)
 {
+   if(argc==2){
    printf("[1] Cifrar un mensaje\n");
    printf("[2] Descifrar un mensaje\n");
    
    printf("\n\nIntroduce una opcion: ");
      if(!scanf("%d",&opcion)){printf("ERROR LEYENDO\n");return 0;};
-   
-   printf("Introduce la palabra clave:");
-     if(!scanf("%s",palabraClave)){printf("ERROR LEYENDO\n");return 0;};
+
+   palabraClave=argv[1];
+   tamanyoPalabraClave=strlen(palabraClave);
 
 
-   long unsigned int t,i,j;
-   tamanyoPalabraClave=t=strlen(palabraClave);
+   int auxx;
+   for(auxx=0;auxx<tamanyoPalabraClave;auxx++){
+	palabraClave[auxx]=tolower(palabraClave[auxx]);
+   }
+
+   long unsigned int i;
+
    palabraClaveTransformada=(int*)malloc(tamanyoPalabraClave*sizeof(int));
+
    for( i=0;i<tamanyoPalabraClave;i=i+1){
-    int f=0;
-     for( j=0;(j<27)&&(f==0);j++){
-       if(palabraClave[i]==vector[j]){
-         palabraClaveTransformada[i]=j;
-         f++;
-       } 
-     }
+
+      palabraClaveTransformada[i]=palabraClave[i]-97;      
    }
 
    yylex();
-
+  }
+  else{
+    printf("Introduce la palabra clave por linea de comandos\n");
+  }
   return 0;
 }
 
 char findAndSet(char letra){
-int i;
-  for(i=0;i<27;i++){
-	if(letra==vector[i]){
-	    return vector[(i+palabraClaveTransformada[cursorPalabraClave])%27];
-	}
-  }
-  return ' ';
+return vector[((letra-97)+palabraClaveTransformada[cursorPalabraClave])%26];
 }
 
 char reverseFindAndSet(char letra){
-  int i;
-  for(i=0;i<27;i++){
-	if(letra==vector[i]){
-	    return vector[((i-palabraClaveTransformada[cursorPalabraClave])+27)%27];
-	}
-  }
-  return ' ';
+return vector[(((letra-97)-palabraClaveTransformada[cursorPalabraClave])+26)%26];
 }
 
    
