@@ -19,7 +19,6 @@
 /* Definiciones regulares */
 letra         [a-z]
 letra_mayus   [A-Z]
-letra_especial (ñ|á|é|í|ó|ú|Á|É|Í|Ó|Ú)
 %% 
 
 {letra}				{if(opcion==1)
@@ -34,7 +33,59 @@ letra_especial (ñ|á|é|í|ó|ú|Á|É|Í|Ó|Ú)
                                    printf("%c",toupper(reverseFindAndSet(yytext[0])));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
 				}
 
+á   				{if(opcion==1)
+                                   {printf("%c",findAndSet('a'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",reverseFindAndSet('a'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
 
+é   				{if(opcion==1)
+                                   {printf("%c",findAndSet('e'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",reverseFindAndSet('e'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
+
+
+í   				{if(opcion==1)
+                                   {printf("%c",findAndSet('i'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",reverseFindAndSet('i'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
+
+
+ó   				{if(opcion==1)
+                                   {printf("%c",findAndSet('o'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",reverseFindAndSet('o'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
+
+
+ú   				{if(opcion==1)
+                                   {printf("%c",findAndSet('u'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",reverseFindAndSet('u'));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
+
+
+Á   				{if(opcion==1)
+                                   {printf("%c",toupper(findAndSet('a')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",toupper(reverseFindAndSet('a')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
+
+É   				{if(opcion==1)
+                                   {printf("%c",toupper(findAndSet('e')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",toupper(reverseFindAndSet('e')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
+
+Í   				{if(opcion==1)
+                                   {printf("%c",toupper(findAndSet('i')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",toupper(reverseFindAndSet('i')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
+
+Ó   				{if(opcion==1)
+                                   {printf("%c",toupper(findAndSet('o')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",toupper(reverseFindAndSet('o')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
+
+Ú   				{if(opcion==1)
+                                   {printf("%c",toupper(findAndSet('u')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}
+                                 if(opcion==2){
+                                   printf("%c",toupper(reverseFindAndSet('u')));cursorPalabraClave=(cursorPalabraClave+1)%tamanyoPalabraClave;}}
 %%  
 
 extern FILE *yyin, *yyout;
