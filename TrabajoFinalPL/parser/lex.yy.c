@@ -872,16 +872,16 @@ YY_RULE_SETUP
 						 /* NEW in example 7 */
 						 std::string identifier(yytext);
 
-
+						for(int x=0;x<identifier.size();x++){
+							identifier[x]= tolower (identifier[x]);
+						}
 						/* 
                           strdup() function returns a pointer to a new string 
                           which  is a duplicate of the string yytext
                         */
-						  yylval.identifier =  strdup(yytext); 
+						  yylval.identifier =  strdup(identifier.c_str()); 
  						/*Recorremos la cadena, así pasamos las mayusculas a minusculas*/
-						for(int x=0;x<identifier.size();x++){
-							identifier[x]= tolower (identifier[x]);
-						}
+
 						/* If the identifier is not in the table of symbols then it is inserted */	
 						 if (table.lookupSymbol(identifier) == false)
 							{
