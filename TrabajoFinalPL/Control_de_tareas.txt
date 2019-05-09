@@ -65,10 +65,10 @@ PALABRAS RESERVADAS:		[ ]							CHECK
 -----------------------------------------------------------------
 IDENTIFICADORES:		[ ]							CHECK
 -----------------------------------------------------------------
-	COMPUESTOS POR LETRAS, DIGITOS Y SUBRAYADOS 					[ ]
-	COMIENZA POR UNA LETRA								[ ]
-	NO TERMINAN  EN SUBRAYADA							[ ]
-	NO CONTIENEN DOS SUBRAYADOS SEGUIDOS						[ ]
+	COMPUESTOS POR LETRAS, DIGITOS Y SUBRAYADOS 					[X]
+	COMIENZA POR UNA LETRA								[X]
+	NO TERMINAN  EN SUBRAYADA							[X]
+	NO CONTIENEN DOS SUBRAYADOS SEGUIDOS						[X]
 
 	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS					[ ]
 
@@ -103,7 +103,7 @@ OPERADORES:				[ ]						CHECK
 			BINARIO 2-3							[ ]
 		PRODUCTO *								[X]
 		DIVISION /								[X]
-		DIVISION_ENTERA _div							[ ]
+		DIVISION_ENTERA _div							[X]
 		MODULO _mod								[X]
 		POTENCIA **								[X]
 

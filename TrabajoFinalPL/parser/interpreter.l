@@ -57,7 +57,7 @@ NUMBER1 {DIGIT}+\.?
 
 NUMBER2 {DIGIT}*\.{DIGIT}+
 
-IDENTIFIER  {LETTER}({LETTER}|{DIGIT})*
+IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 
 /* NEW in example 3 */
 /* STATE  */
@@ -101,6 +101,7 @@ IDENTIFIER  {LETTER}({LETTER}|{DIGIT})*
 						 /* NEW in example 7 */
 						 std::string identifier(yytext);
 
+ 						/*Recorremos la cadena, así pasamos las mayusculas a minusculas*/
 						/* 
                           strdup() function returns a pointer to a new string 
                           which  is a duplicate of the string yytext
@@ -142,7 +143,7 @@ IDENTIFIER  {LETTER}({LETTER}|{DIGIT})*
 							}
                      }
 
-_div		{ return DIVISION_ENTERA;}
+"_div"		{ return DIVISION_ENTERA;}
 
 "-"		{ return MINUS;  } 			/* NEW in example 3 */
 "+"		{ return PLUS;   } 			/* NEW in example 3 */
@@ -155,18 +156,18 @@ _div		{ return DIVISION_ENTERA;}
 
 
 
-_mod     { return MODULO; }			/* NEW in example 5 */
+"_mod"     { return MODULO; }			/* NEW in example 5 */
 
-"^"	    { return POWER; }			/* NEW in example 5 */
+"**"	    { return POWER; }			/* NEW in example 5 */
 
-"=" 	{ return ASSIGNMENT; }		/* NEW in example 7 */
+":=" 	{ return ASSIGNMENT; }		/* NEW in example 7 */
 
 
-"=="	{ return EQUAL; }			/* NEW in example 15 */
+"="	{ return EQUAL; }			/* NEW in example 15 */
 
-"!="	{ return NOT_EQUAL; }		/* NEW in example 15 */
+"<>"	{ return NOT_EQUAL; }		/* NEW in example 15 */
 
-">="	{ return GREATER_OR_EQUAL; }/* NEW in example 15 */
+">="	{ return GREATER_OR_EQUAL; }/* NEW in example 15 */	
 
 "<="	{ return LESS_OR_EQUAL; }	/* NEW in example 15 */
 
@@ -174,11 +175,11 @@ _mod     { return MODULO; }			/* NEW in example 5 */
 
 "<"		{ return LESS_THAN; }		/* NEW in example 15 */
 
-"!"		{ return NOT; }				/* NEW in example 15 */
+"_no"		{ return NOT; }				/* NEW in example 15 */
 
-"||"	{ return OR; }				/* NEW in example 15 */
+"_o"	{ return OR; }				/* NEW in example 15 */
 
-"&&"	{ return AND; }				/* NEW in example 15 */
+"_y"	{ return AND; }				/* NEW in example 15 */
 
 "{"		{ return LETFCURLYBRACKET; } 	/* NEW in example 17 */
 
