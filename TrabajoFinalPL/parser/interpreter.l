@@ -142,6 +142,8 @@ IDENTIFIER  {LETTER}({LETTER}|{DIGIT})*
 							}
                      }
 
+_div		{ return DIVISION_ENTERA;}
+
 "-"		{ return MINUS;  } 			/* NEW in example 3 */
 "+"		{ return PLUS;   } 			/* NEW in example 3 */
 
@@ -153,7 +155,7 @@ IDENTIFIER  {LETTER}({LETTER}|{DIGIT})*
 
 
 
-"%"     { return MODULO; }			/* NEW in example 5 */
+_mod     { return MODULO; }			/* NEW in example 5 */
 
 "^"	    { return POWER; }			/* NEW in example 5 */
 

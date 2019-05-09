@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string>
 #include <list>
-
+#include <cmath>
 
 #define ERROR_BOUND 1.0e-6  //!< Error bound for the comparison of real numbers.
 /*
@@ -720,6 +720,41 @@ class DivisionNode : public NumericOperatorNode
 };
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/*!	
+  \class   DivisionEnteraNode
+  \brief   Atributos y metodos para la division entera
+  \note    DivisionEnteraNode Clase que hereda de NumericOperatorNode y añade su propio print y evaluate
+*/
+class DivisionEnteraNode : public NumericOperatorNode 
+{
+  public:
+/*!		
+	\brief Constructor de DivisionEnteraNode usando el constructor de NumericOperatorNode
+	\param L: pointer to ExpNode
+	\param R: pointer to ExpNode
+	\post  Crea un nuevo DivisionEnteraNode 
+*/
+  DivisionEnteraNode(ExpNode *L, ExpNode *R): NumericOperatorNode(L,R) 
+  {
+		// Empty
+  }
+/*!
+	\brief   Print the DivisionEnteraNode
+	\return  void
+	\sa		 evaluate()
+*/
+  void print();
+
+/*!	
+	\brief   Evaluate the DivisionEnteraNode
+	\return  double
+	\sa		 print
+*/
+  double evaluateNumber();
+};
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 

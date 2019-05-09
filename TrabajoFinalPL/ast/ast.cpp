@@ -478,6 +478,47 @@ double lp::DivisionNode::evaluateNumber()
   return result;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::DivisionEnteraNode::print()
+{
+  std::cout << "DivisionEnteraNode: " << std::endl;
+  this->_left->print();
+  std::cout << " _div ";
+  this->_right->print();
+}
+
+double lp::DivisionEnteraNode::evaluateNumber() 
+{
+	double result = 0.0;
+
+	// Ckeck the types of the expressions
+	if (this->getType() == NUMBER)
+	{
+		double leftNumber, rightNumber;
+
+		leftNumber = this->_left->evaluateNumber();
+		rightNumber = this->_right->evaluateNumber();
+	
+		// The divisor is not zero
+    	if(std::abs(rightNumber) > ERROR_BOUND)
+		{
+				result = leftNumber / rightNumber;
+		}
+		else
+		{
+			warning("Runtime error", "Division by zero");
+		}
+	}
+	else
+	{
+		warning("Runtime error: the expressions are not numeric for", "Division");
+	}
+  result= (int) result;
+  return  result;
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
