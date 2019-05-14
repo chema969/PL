@@ -1483,6 +1483,42 @@ class AssignmentStmt : public Statement
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /*!	
+  \class   BorrarStmt
+  \brief   Definition of atributes and methods of BorrarStmt class
+  \note    BorrarStmt Class publicly inherits from Statement class 
+		   and adds its own print and evaluate functions
+  \warning  In this class, print and evaluate functions have the same meaning.
+*/
+class BorrarStmt: public Statement 
+{
+
+ public:
+/*!		
+	\brief Constructor of BorrarStmt 
+	\post  A new BorrarStmt is created 
+*/
+  BorrarStmt()
+	{
+	}
+
+/*!
+	\brief   Print the BorrarStmt
+	\return  void
+	\sa		 evaluate()
+*/
+  void print();
+
+/*!	
+	\brief   Evaluate the BorrarStmt
+	\return  double
+	\sa		 print
+*/
+  void evaluate();
+};
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/*!	
   \class   PrintStmt
   \brief   Definition of atributes and methods of PrintStmt class
   \note    PrintStmt Class publicly inherits from Statement class 

@@ -1186,8 +1186,8 @@ void lp::AssignmentStmt::evaluate()
 
 void lp::PrintStmt::print() 
 {
-  std::cout << "PrintStmt: "  << std::endl;
-  std::cout << " print ";
+  std::cout << "LeerStmt: "  << std::endl;
+  std::cout << " leer ";
   this->_exp->print();
   std::cout << std::endl;
 }
@@ -1196,7 +1196,7 @@ void lp::PrintStmt::print()
 void lp::PrintStmt::evaluate() 
 {
 	std::cout << BIYELLOW; 
-	std::cout << "Print: ";
+	std::cout << "Leer: ";
 	std::cout << RESET; 
 
 	switch(this->_exp->getType())
@@ -1213,10 +1213,23 @@ void lp::PrintStmt::evaluate()
 			break;
 
 		default:
-			warning("Runtime error: incompatible type for ", "print");
+			warning("Runtime error: incompatible type for ", "leer");
 	}
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::BorrarStmt::print() 
+{
+  std::cout << CLEAR_SCREEN;
+}
+
+
+void lp::BorrarStmt::evaluate() 
+{
+  std::cout << CLEAR_SCREEN;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////

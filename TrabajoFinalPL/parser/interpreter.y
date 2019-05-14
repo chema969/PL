@@ -282,6 +282,11 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;
 	  }
+	| borrar SEMICOLON
+	  {
+		// Default action
+		// $$ = $1;
+	  }
 	/*  NEW in example 17 */
 	| if 
 	 {
@@ -377,7 +382,7 @@ print:  PRINT exp
 borrar:  BORRAR  
 		{
 			// Create a new print node
-			 $$ = new lp::PrintStmt($2);
+			 $$ = new lp::BorrarStmt();
 		}
 ;	
 

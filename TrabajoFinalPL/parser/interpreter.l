@@ -192,6 +192,7 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 
 "}"		{ return RIGHTCURLYBRACKET; }	/* NEW in example 17 */
 
+"_borrar"     {return BORRAR;}
 
 
 ^# { /* The interpreter finishes when the symbol # is written at the beginning of the line */
