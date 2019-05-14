@@ -63,14 +63,14 @@ PALABRAS RESERVADAS:		[ ]							CHECK
 
 
 -----------------------------------------------------------------
-IDENTIFICADORES:		[ ]							CHECK
+IDENTIFICADORES:		[X]							CHECK
 -----------------------------------------------------------------
 	COMPUESTOS POR LETRAS, DIGITOS Y SUBRAYADOS 					[X]
 	COMIENZA POR UNA LETRA								[X]
 	NO TERMINAN  EN SUBRAYADA							[X]
 	NO CONTIENEN DOS SUBRAYADOS SEGUIDOS						[X]
 
-	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS					[ ]
+	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS					[X]
 
 
 -----------------------------------------------------------------
@@ -93,14 +93,14 @@ CADENA:					[ ]						CHECK
 -----------------------------------------------------------------
 OPERADORES:				[ ]						CHECK
 -----------------------------------------------------------------
-	NUMERICOS									[ ]
-		ASIGNACION :=								[ ]
-		SUMA +									[ ]
-			UNARIO +2							[ ]
-			BINARIO 2+3							[ ]
-		RESTA -									[ ]
-			UNARIO -2							[ ]
-			BINARIO 2-3							[ ]
+	NUMERICOS									[X]
+		ASIGNACION :=								[X]
+		SUMA +									[X]
+			UNARIO +2							[X]
+			BINARIO 2+3							[X]
+		RESTA -									[x]
+			UNARIO -2							[X]
+			BINARIO 2-3							[X]
 		PRODUCTO *								[X]
 		DIVISION /								[X]
 		DIVISION_ENTERA _div							[X]
@@ -129,7 +129,7 @@ OTROS:					[ ]						CHECK
 		VARIAS LINEAS: DELIMITADORES #	.... #					[ ]
 		UNA LÍNEA: DELIMITADOR @						[ ]
 
-	FIN DE LINEA ;									[ ]
+	FIN DE LINEA ;									[;]
 
 -----------------------------------------------------------------
 SENTENCIAS DE CONTROL:	[ ]								CHECK

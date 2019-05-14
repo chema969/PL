@@ -149,7 +149,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print read if while block
+%type <st> stmt asgn print read if while block borrar
 
 %type <prog> program
 
@@ -163,7 +163,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /*******************************************/
 
 // NEW in example 17: IF, ELSE, WHILE 
-%token PRINT READ IF ELSE WHILE
+%token PRINT READ IF ELSE WHILE BORRAR
 
 // NEW in example 17
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
@@ -373,6 +373,14 @@ print:  PRINT exp
 			 $$ = new lp::PrintStmt($2);
 		}
 ;	
+
+borrar:  BORRAR  
+		{
+			// Create a new print node
+			 $$ = new lp::PrintStmt($2);
+		}
+;	
+
 
 read:  READ LPAREN VARIABLE RPAREN  
 		{

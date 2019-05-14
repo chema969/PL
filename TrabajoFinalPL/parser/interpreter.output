@@ -1,0 +1,1875 @@
+Terminals unused in grammar
+
+   BOOL
+   UNDEFINED
+
+
+Estado 62 conflictos: 1 desplazamiento(s)/reducción(ones)
+
+
+Gramática
+
+    0 $accept: program $end
+
+    1 program: stmtlist
+
+    2 stmtlist: %empty
+    3         | stmtlist stmt
+    4         | stmtlist error
+
+    5 stmt: SEMICOLON
+    6     | asgn SEMICOLON
+    7     | print SEMICOLON
+    8     | read SEMICOLON
+    9     | if
+   10     | while
+   11     | block
+
+   12 block: LETFCURLYBRACKET stmtlist RIGHTCURLYBRACKET
+
+   13 if: IF cond stmt
+   14   | IF cond stmt ELSE stmt
+
+   15 while: WHILE cond stmt
+
+   16 cond: LPAREN exp RPAREN
+
+   17 asgn: VARIABLE ASSIGNMENT exp
+   18     | VARIABLE ASSIGNMENT asgn
+   19     | CONSTANT ASSIGNMENT exp
+   20     | CONSTANT ASSIGNMENT asgn
+
+   21 print: PRINT exp
+
+   22 read: READ LPAREN VARIABLE RPAREN
+   23     | READ LPAREN CONSTANT RPAREN
+
+   24 exp: NUMBER
+   25    | exp PLUS exp
+   26    | exp MINUS exp
+   27    | exp MULTIPLICATION exp
+   28    | exp DIVISION exp
+   29    | exp DIVISION_ENTERA exp
+   30    | LPAREN exp RPAREN
+   31    | PLUS exp
+   32    | MINUS exp
+   33    | exp MODULO exp
+   34    | exp PLUS PLUS
+   35    | exp POWER exp
+   36    | VARIABLE
+   37    | CONSTANT
+   38    | BUILTIN LPAREN listOfExp RPAREN
+   39    | exp GREATER_THAN exp
+   40    | exp GREATER_OR_EQUAL exp
+   41    | exp LESS_THAN exp
+   42    | exp LESS_OR_EQUAL exp
+   43    | exp EQUAL exp
+   44    | exp NOT_EQUAL exp
+   45    | exp AND exp
+   46    | exp OR exp
+   47    | NOT exp
+
+   48 listOfExp: %empty
+   49          | exp restOfListOfExp
+
+   50 restOfListOfExp: %empty
+   51                | COMMA exp restOfListOfExp
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+error (256) 4
+SEMICOLON (258) 5 6 7 8
+PRINT (259) 21
+READ (260) 22 23
+IF (261) 13 14
+ELSE (262) 14
+WHILE (263) 15
+LETFCURLYBRACKET (264) 12
+RIGHTCURLYBRACKET (265) 12
+ASSIGNMENT (266) 17 18 19 20
+COMMA (267) 51
+NUMBER (268) 24
+BOOL (269)
+VARIABLE (270) 17 18 22 36
+UNDEFINED (271)
+CONSTANT (272) 19 20 23 37
+BUILTIN (273) 38
+OR (274) 46
+AND (275) 45
+GREATER_OR_EQUAL (276) 40
+LESS_OR_EQUAL (277) 42
+GREATER_THAN (278) 39
+LESS_THAN (279) 41
+EQUAL (280) 43
+NOT_EQUAL (281) 44
+NOT (282) 47
+PLUS (283) 25 31 34
+MINUS (284) 26 32
+MULTIPLICATION (285) 27
+DIVISION (286) 28
+MODULO (287) 33
+DIVISION_ENTERA (288) 29
+LPAREN (289) 16 22 23 30 38
+RPAREN (290) 16 22 23 30 38
+UNARY (291)
+POWER (292) 35
+
+
+No terminales con las reglas donde aparecen
+
+$accept (38)
+    en la izquierda: 0
+program (39)
+    en la izquierda: 1, en la derecha: 0
+stmtlist (40)
+    en la izquierda: 2 3 4, en la derecha: 1 3 4 12
+stmt (41)
+    en la izquierda: 5 6 7 8 9 10 11, en la derecha: 3 13 14 15
+block (42)
+    en la izquierda: 12, en la derecha: 11
+if (43)
+    en la izquierda: 13 14, en la derecha: 9
+while (44)
+    en la izquierda: 15, en la derecha: 10
+cond (45)
+    en la izquierda: 16, en la derecha: 13 14 15
+asgn (46)
+    en la izquierda: 17 18 19 20, en la derecha: 6 18 20
+print (47)
+    en la izquierda: 21, en la derecha: 7
+read (48)
+    en la izquierda: 22 23, en la derecha: 8
+exp (49)
+    en la izquierda: 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39
+    40 41 42 43 44 45 46 47, en la derecha: 16 17 19 21 25 26 27 28
+    29 30 31 32 33 34 35 39 40 41 42 43 44 45 46 47 49 51
+listOfExp (50)
+    en la izquierda: 48 49, en la derecha: 38
+restOfListOfExp (51)
+    en la izquierda: 50 51, en la derecha: 49 51
+
+
+State 0
+
+    0 $accept: . program $end
+
+    $default  reduce usando la regla 2 (stmtlist)
+
+    program   ir al estado 1
+    stmtlist  ir al estado 2
+
+
+State 1
+
+    0 $accept: program . $end
+
+    $end  desplazar e ir al estado 3
+
+
+State 2
+
+    1 program: stmtlist .
+    3 stmtlist: stmtlist . stmt
+    4         | stmtlist . error
+
+    error             desplazar e ir al estado 4
+    SEMICOLON         desplazar e ir al estado 5
+    PRINT             desplazar e ir al estado 6
+    READ              desplazar e ir al estado 7
+    IF                desplazar e ir al estado 8
+    WHILE             desplazar e ir al estado 9
+    LETFCURLYBRACKET  desplazar e ir al estado 10
+    VARIABLE          desplazar e ir al estado 11
+    CONSTANT          desplazar e ir al estado 12
+
+    $end  reduce usando la regla 1 (program)
+
+    stmt   ir al estado 13
+    block  ir al estado 14
+    if     ir al estado 15
+    while  ir al estado 16
+    asgn   ir al estado 17
+    print  ir al estado 18
+    read   ir al estado 19
+
+
+State 3
+
+    0 $accept: program $end .
+
+    $default  aceptar
+
+
+State 4
+
+    4 stmtlist: stmtlist error .
+
+    $default  reduce usando la regla 4 (stmtlist)
+
+
+State 5
+
+    5 stmt: SEMICOLON .
+
+    $default  reduce usando la regla 5 (stmt)
+
+
+State 6
+
+   21 print: PRINT . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 28
+
+
+State 7
+
+   22 read: READ . LPAREN VARIABLE RPAREN
+   23     | READ . LPAREN CONSTANT RPAREN
+
+    LPAREN  desplazar e ir al estado 29
+
+
+State 8
+
+   13 if: IF . cond stmt
+   14   | IF . cond stmt ELSE stmt
+
+    LPAREN  desplazar e ir al estado 30
+
+    cond  ir al estado 31
+
+
+State 9
+
+   15 while: WHILE . cond stmt
+
+    LPAREN  desplazar e ir al estado 30
+
+    cond  ir al estado 32
+
+
+State 10
+
+   12 block: LETFCURLYBRACKET . stmtlist RIGHTCURLYBRACKET
+
+    $default  reduce usando la regla 2 (stmtlist)
+
+    stmtlist  ir al estado 33
+
+
+State 11
+
+   17 asgn: VARIABLE . ASSIGNMENT exp
+   18     | VARIABLE . ASSIGNMENT asgn
+
+    ASSIGNMENT  desplazar e ir al estado 34
+
+
+State 12
+
+   19 asgn: CONSTANT . ASSIGNMENT exp
+   20     | CONSTANT . ASSIGNMENT asgn
+
+    ASSIGNMENT  desplazar e ir al estado 35
+
+
+State 13
+
+    3 stmtlist: stmtlist stmt .
+
+    $default  reduce usando la regla 3 (stmtlist)
+
+
+State 14
+
+   11 stmt: block .
+
+    $default  reduce usando la regla 11 (stmt)
+
+
+State 15
+
+    9 stmt: if .
+
+    $default  reduce usando la regla 9 (stmt)
+
+
+State 16
+
+   10 stmt: while .
+
+    $default  reduce usando la regla 10 (stmt)
+
+
+State 17
+
+    6 stmt: asgn . SEMICOLON
+
+    SEMICOLON  desplazar e ir al estado 36
+
+
+State 18
+
+    7 stmt: print . SEMICOLON
+
+    SEMICOLON  desplazar e ir al estado 37
+
+
+State 19
+
+    8 stmt: read . SEMICOLON
+
+    SEMICOLON  desplazar e ir al estado 38
+
+
+State 20
+
+   24 exp: NUMBER .
+
+    $default  reduce usando la regla 24 (exp)
+
+
+State 21
+
+   36 exp: VARIABLE .
+
+    $default  reduce usando la regla 36 (exp)
+
+
+State 22
+
+   37 exp: CONSTANT .
+
+    $default  reduce usando la regla 37 (exp)
+
+
+State 23
+
+   38 exp: BUILTIN . LPAREN listOfExp RPAREN
+
+    LPAREN  desplazar e ir al estado 39
+
+
+State 24
+
+   47 exp: NOT . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 40
+
+
+State 25
+
+   31 exp: PLUS . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 41
+
+
+State 26
+
+   32 exp: MINUS . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 42
+
+
+State 27
+
+   30 exp: LPAREN . exp RPAREN
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 43
+
+
+State 28
+
+   21 print: PRINT exp .
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    OR                desplazar e ir al estado 44
+    AND               desplazar e ir al estado 45
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    POWER             desplazar e ir al estado 58
+
+    $default  reduce usando la regla 21 (print)
+
+
+State 29
+
+   22 read: READ LPAREN . VARIABLE RPAREN
+   23     | READ LPAREN . CONSTANT RPAREN
+
+    VARIABLE  desplazar e ir al estado 59
+    CONSTANT  desplazar e ir al estado 60
+
+
+State 30
+
+   16 cond: LPAREN . exp RPAREN
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 61
+
+
+State 31
+
+   13 if: IF cond . stmt
+   14   | IF cond . stmt ELSE stmt
+
+    SEMICOLON         desplazar e ir al estado 5
+    PRINT             desplazar e ir al estado 6
+    READ              desplazar e ir al estado 7
+    IF                desplazar e ir al estado 8
+    WHILE             desplazar e ir al estado 9
+    LETFCURLYBRACKET  desplazar e ir al estado 10
+    VARIABLE          desplazar e ir al estado 11
+    CONSTANT          desplazar e ir al estado 12
+
+    stmt   ir al estado 62
+    block  ir al estado 14
+    if     ir al estado 15
+    while  ir al estado 16
+    asgn   ir al estado 17
+    print  ir al estado 18
+    read   ir al estado 19
+
+
+State 32
+
+   15 while: WHILE cond . stmt
+
+    SEMICOLON         desplazar e ir al estado 5
+    PRINT             desplazar e ir al estado 6
+    READ              desplazar e ir al estado 7
+    IF                desplazar e ir al estado 8
+    WHILE             desplazar e ir al estado 9
+    LETFCURLYBRACKET  desplazar e ir al estado 10
+    VARIABLE          desplazar e ir al estado 11
+    CONSTANT          desplazar e ir al estado 12
+
+    stmt   ir al estado 63
+    block  ir al estado 14
+    if     ir al estado 15
+    while  ir al estado 16
+    asgn   ir al estado 17
+    print  ir al estado 18
+    read   ir al estado 19
+
+
+State 33
+
+    3 stmtlist: stmtlist . stmt
+    4         | stmtlist . error
+   12 block: LETFCURLYBRACKET stmtlist . RIGHTCURLYBRACKET
+
+    error              desplazar e ir al estado 4
+    SEMICOLON          desplazar e ir al estado 5
+    PRINT              desplazar e ir al estado 6
+    READ               desplazar e ir al estado 7
+    IF                 desplazar e ir al estado 8
+    WHILE              desplazar e ir al estado 9
+    LETFCURLYBRACKET   desplazar e ir al estado 10
+    RIGHTCURLYBRACKET  desplazar e ir al estado 64
+    VARIABLE           desplazar e ir al estado 11
+    CONSTANT           desplazar e ir al estado 12
+
+    stmt   ir al estado 13
+    block  ir al estado 14
+    if     ir al estado 15
+    while  ir al estado 16
+    asgn   ir al estado 17
+    print  ir al estado 18
+    read   ir al estado 19
+
+
+State 34
+
+   17 asgn: VARIABLE ASSIGNMENT . exp
+   18     | VARIABLE ASSIGNMENT . asgn
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 65
+    CONSTANT  desplazar e ir al estado 66
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    asgn  ir al estado 67
+    exp   ir al estado 68
+
+
+State 35
+
+   19 asgn: CONSTANT ASSIGNMENT . exp
+   20     | CONSTANT ASSIGNMENT . asgn
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 65
+    CONSTANT  desplazar e ir al estado 66
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    asgn  ir al estado 69
+    exp   ir al estado 70
+
+
+State 36
+
+    6 stmt: asgn SEMICOLON .
+
+    $default  reduce usando la regla 6 (stmt)
+
+
+State 37
+
+    7 stmt: print SEMICOLON .
+
+    $default  reduce usando la regla 7 (stmt)
+
+
+State 38
+
+    8 stmt: read SEMICOLON .
+
+    $default  reduce usando la regla 8 (stmt)
+
+
+State 39
+
+   38 exp: BUILTIN LPAREN . listOfExp RPAREN
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    $default  reduce usando la regla 48 (listOfExp)
+
+    exp        ir al estado 71
+    listOfExp  ir al estado 72
+
+
+State 40
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+   47    | NOT exp .
+
+    PLUS             desplazar e ir al estado 52
+    MINUS            desplazar e ir al estado 53
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    $default  reduce usando la regla 47 (exp)
+
+
+State 41
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   31    | PLUS exp .
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    POWER  desplazar e ir al estado 58
+
+    $default  reduce usando la regla 31 (exp)
+
+
+State 42
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   32    | MINUS exp .
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    POWER  desplazar e ir al estado 58
+
+    $default  reduce usando la regla 32 (exp)
+
+
+State 43
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   30    | LPAREN exp . RPAREN
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    OR                desplazar e ir al estado 44
+    AND               desplazar e ir al estado 45
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    RPAREN            desplazar e ir al estado 73
+    POWER             desplazar e ir al estado 58
+
+
+State 44
+
+   46 exp: exp OR . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 74
+
+
+State 45
+
+   45 exp: exp AND . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 75
+
+
+State 46
+
+   40 exp: exp GREATER_OR_EQUAL . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 76
+
+
+State 47
+
+   42 exp: exp LESS_OR_EQUAL . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 77
+
+
+State 48
+
+   39 exp: exp GREATER_THAN . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 78
+
+
+State 49
+
+   41 exp: exp LESS_THAN . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 79
+
+
+State 50
+
+   43 exp: exp EQUAL . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 80
+
+
+State 51
+
+   44 exp: exp NOT_EQUAL . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 81
+
+
+State 52
+
+   25 exp: exp PLUS . exp
+   34    | exp PLUS . PLUS
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 82
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 83
+
+
+State 53
+
+   26 exp: exp MINUS . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 84
+
+
+State 54
+
+   27 exp: exp MULTIPLICATION . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 85
+
+
+State 55
+
+   28 exp: exp DIVISION . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 86
+
+
+State 56
+
+   33 exp: exp MODULO . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 87
+
+
+State 57
+
+   29 exp: exp DIVISION_ENTERA . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 88
+
+
+State 58
+
+   35 exp: exp POWER . exp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 89
+
+
+State 59
+
+   22 read: READ LPAREN VARIABLE . RPAREN
+
+    RPAREN  desplazar e ir al estado 90
+
+
+State 60
+
+   23 read: READ LPAREN CONSTANT . RPAREN
+
+    RPAREN  desplazar e ir al estado 91
+
+
+State 61
+
+   16 cond: LPAREN exp . RPAREN
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    OR                desplazar e ir al estado 44
+    AND               desplazar e ir al estado 45
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    RPAREN            desplazar e ir al estado 92
+    POWER             desplazar e ir al estado 58
+
+
+State 62
+
+   13 if: IF cond stmt .
+   14   | IF cond stmt . ELSE stmt
+
+    ELSE  desplazar e ir al estado 93
+
+    ELSE      [reduce usando la regla 13 (if)]
+    $default  reduce usando la regla 13 (if)
+
+
+State 63
+
+   15 while: WHILE cond stmt .
+
+    $default  reduce usando la regla 15 (while)
+
+
+State 64
+
+   12 block: LETFCURLYBRACKET stmtlist RIGHTCURLYBRACKET .
+
+    $default  reduce usando la regla 12 (block)
+
+
+State 65
+
+   17 asgn: VARIABLE . ASSIGNMENT exp
+   18     | VARIABLE . ASSIGNMENT asgn
+   36 exp: VARIABLE .
+
+    ASSIGNMENT  desplazar e ir al estado 34
+
+    $default  reduce usando la regla 36 (exp)
+
+
+State 66
+
+   19 asgn: CONSTANT . ASSIGNMENT exp
+   20     | CONSTANT . ASSIGNMENT asgn
+   37 exp: CONSTANT .
+
+    ASSIGNMENT  desplazar e ir al estado 35
+
+    $default  reduce usando la regla 37 (exp)
+
+
+State 67
+
+   18 asgn: VARIABLE ASSIGNMENT asgn .
+
+    $default  reduce usando la regla 18 (asgn)
+
+
+State 68
+
+   17 asgn: VARIABLE ASSIGNMENT exp .
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    OR                desplazar e ir al estado 44
+    AND               desplazar e ir al estado 45
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    POWER             desplazar e ir al estado 58
+
+    $default  reduce usando la regla 17 (asgn)
+
+
+State 69
+
+   20 asgn: CONSTANT ASSIGNMENT asgn .
+
+    $default  reduce usando la regla 20 (asgn)
+
+
+State 70
+
+   19 asgn: CONSTANT ASSIGNMENT exp .
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    OR                desplazar e ir al estado 44
+    AND               desplazar e ir al estado 45
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    POWER             desplazar e ir al estado 58
+
+    $default  reduce usando la regla 19 (asgn)
+
+
+State 71
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+   49 listOfExp: exp . restOfListOfExp
+
+    COMMA             desplazar e ir al estado 94
+    OR                desplazar e ir al estado 44
+    AND               desplazar e ir al estado 45
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    POWER             desplazar e ir al estado 58
+
+    $default  reduce usando la regla 50 (restOfListOfExp)
+
+    restOfListOfExp  ir al estado 95
+
+
+State 72
+
+   38 exp: BUILTIN LPAREN listOfExp . RPAREN
+
+    RPAREN  desplazar e ir al estado 96
+
+
+State 73
+
+   30 exp: LPAREN exp RPAREN .
+
+    $default  reduce usando la regla 30 (exp)
+
+
+State 74
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+   46    | exp OR exp .
+
+    AND               desplazar e ir al estado 45
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    POWER             desplazar e ir al estado 58
+
+    $default  reduce usando la regla 46 (exp)
+
+
+State 75
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   45    | exp AND exp .
+   46    | exp . OR exp
+
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    POWER             desplazar e ir al estado 58
+
+    $default  reduce usando la regla 45 (exp)
+
+
+State 76
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   40    | exp GREATER_OR_EQUAL exp .
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    PLUS             desplazar e ir al estado 52
+    MINUS            desplazar e ir al estado 53
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    GREATER_OR_EQUAL  error (no asociativo)
+    LESS_OR_EQUAL     error (no asociativo)
+    GREATER_THAN      error (no asociativo)
+    LESS_THAN         error (no asociativo)
+    EQUAL             error (no asociativo)
+    NOT_EQUAL         error (no asociativo)
+
+    $default  reduce usando la regla 40 (exp)
+
+
+State 77
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   42    | exp LESS_OR_EQUAL exp .
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    PLUS             desplazar e ir al estado 52
+    MINUS            desplazar e ir al estado 53
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    GREATER_OR_EQUAL  error (no asociativo)
+    LESS_OR_EQUAL     error (no asociativo)
+    GREATER_THAN      error (no asociativo)
+    LESS_THAN         error (no asociativo)
+    EQUAL             error (no asociativo)
+    NOT_EQUAL         error (no asociativo)
+
+    $default  reduce usando la regla 42 (exp)
+
+
+State 78
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   39    | exp GREATER_THAN exp .
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    PLUS             desplazar e ir al estado 52
+    MINUS            desplazar e ir al estado 53
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    GREATER_OR_EQUAL  error (no asociativo)
+    LESS_OR_EQUAL     error (no asociativo)
+    GREATER_THAN      error (no asociativo)
+    LESS_THAN         error (no asociativo)
+    EQUAL             error (no asociativo)
+    NOT_EQUAL         error (no asociativo)
+
+    $default  reduce usando la regla 39 (exp)
+
+
+State 79
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   41    | exp LESS_THAN exp .
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    PLUS             desplazar e ir al estado 52
+    MINUS            desplazar e ir al estado 53
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    GREATER_OR_EQUAL  error (no asociativo)
+    LESS_OR_EQUAL     error (no asociativo)
+    GREATER_THAN      error (no asociativo)
+    LESS_THAN         error (no asociativo)
+    EQUAL             error (no asociativo)
+    NOT_EQUAL         error (no asociativo)
+
+    $default  reduce usando la regla 41 (exp)
+
+
+State 80
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   43    | exp EQUAL exp .
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    PLUS             desplazar e ir al estado 52
+    MINUS            desplazar e ir al estado 53
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    GREATER_OR_EQUAL  error (no asociativo)
+    LESS_OR_EQUAL     error (no asociativo)
+    GREATER_THAN      error (no asociativo)
+    LESS_THAN         error (no asociativo)
+    EQUAL             error (no asociativo)
+    NOT_EQUAL         error (no asociativo)
+
+    $default  reduce usando la regla 43 (exp)
+
+
+State 81
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   44    | exp NOT_EQUAL exp .
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    PLUS             desplazar e ir al estado 52
+    MINUS            desplazar e ir al estado 53
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    GREATER_OR_EQUAL  error (no asociativo)
+    LESS_OR_EQUAL     error (no asociativo)
+    GREATER_THAN      error (no asociativo)
+    LESS_THAN         error (no asociativo)
+    EQUAL             error (no asociativo)
+    NOT_EQUAL         error (no asociativo)
+
+    $default  reduce usando la regla 44 (exp)
+
+
+State 82
+
+   31 exp: PLUS . exp
+   34    | exp PLUS PLUS .
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    LPAREN    desplazar e ir al estado 27
+
+    $default  reduce usando la regla 34 (exp)
+
+    exp  ir al estado 41
+
+
+State 83
+
+   25 exp: exp . PLUS exp
+   25    | exp PLUS exp .
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    $default  reduce usando la regla 25 (exp)
+
+
+State 84
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   26    | exp MINUS exp .
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    MULTIPLICATION   desplazar e ir al estado 54
+    DIVISION         desplazar e ir al estado 55
+    MODULO           desplazar e ir al estado 56
+    DIVISION_ENTERA  desplazar e ir al estado 57
+    POWER            desplazar e ir al estado 58
+
+    $default  reduce usando la regla 26 (exp)
+
+
+State 85
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   27    | exp MULTIPLICATION exp .
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    POWER  desplazar e ir al estado 58
+
+    $default  reduce usando la regla 27 (exp)
+
+
+State 86
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   28    | exp DIVISION exp .
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    POWER  desplazar e ir al estado 58
+
+    $default  reduce usando la regla 28 (exp)
+
+
+State 87
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   33    | exp MODULO exp .
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    POWER  desplazar e ir al estado 58
+
+    $default  reduce usando la regla 33 (exp)
+
+
+State 88
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   29    | exp DIVISION_ENTERA exp .
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    POWER  desplazar e ir al estado 58
+
+    $default  reduce usando la regla 29 (exp)
+
+
+State 89
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   35    | exp POWER exp .
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+
+    POWER  desplazar e ir al estado 58
+
+    $default  reduce usando la regla 35 (exp)
+
+
+State 90
+
+   22 read: READ LPAREN VARIABLE RPAREN .
+
+    $default  reduce usando la regla 22 (read)
+
+
+State 91
+
+   23 read: READ LPAREN CONSTANT RPAREN .
+
+    $default  reduce usando la regla 23 (read)
+
+
+State 92
+
+   16 cond: LPAREN exp RPAREN .
+
+    $default  reduce usando la regla 16 (cond)
+
+
+State 93
+
+   14 if: IF cond stmt ELSE . stmt
+
+    SEMICOLON         desplazar e ir al estado 5
+    PRINT             desplazar e ir al estado 6
+    READ              desplazar e ir al estado 7
+    IF                desplazar e ir al estado 8
+    WHILE             desplazar e ir al estado 9
+    LETFCURLYBRACKET  desplazar e ir al estado 10
+    VARIABLE          desplazar e ir al estado 11
+    CONSTANT          desplazar e ir al estado 12
+
+    stmt   ir al estado 97
+    block  ir al estado 14
+    if     ir al estado 15
+    while  ir al estado 16
+    asgn   ir al estado 17
+    print  ir al estado 18
+    read   ir al estado 19
+
+
+State 94
+
+   51 restOfListOfExp: COMMA . exp restOfListOfExp
+
+    NUMBER    desplazar e ir al estado 20
+    VARIABLE  desplazar e ir al estado 21
+    CONSTANT  desplazar e ir al estado 22
+    BUILTIN   desplazar e ir al estado 23
+    NOT       desplazar e ir al estado 24
+    PLUS      desplazar e ir al estado 25
+    MINUS     desplazar e ir al estado 26
+    LPAREN    desplazar e ir al estado 27
+
+    exp  ir al estado 98
+
+
+State 95
+
+   49 listOfExp: exp restOfListOfExp .
+
+    $default  reduce usando la regla 49 (listOfExp)
+
+
+State 96
+
+   38 exp: BUILTIN LPAREN listOfExp RPAREN .
+
+    $default  reduce usando la regla 38 (exp)
+
+
+State 97
+
+   14 if: IF cond stmt ELSE stmt .
+
+    $default  reduce usando la regla 14 (if)
+
+
+State 98
+
+   25 exp: exp . PLUS exp
+   26    | exp . MINUS exp
+   27    | exp . MULTIPLICATION exp
+   28    | exp . DIVISION exp
+   29    | exp . DIVISION_ENTERA exp
+   33    | exp . MODULO exp
+   34    | exp . PLUS PLUS
+   35    | exp . POWER exp
+   39    | exp . GREATER_THAN exp
+   40    | exp . GREATER_OR_EQUAL exp
+   41    | exp . LESS_THAN exp
+   42    | exp . LESS_OR_EQUAL exp
+   43    | exp . EQUAL exp
+   44    | exp . NOT_EQUAL exp
+   45    | exp . AND exp
+   46    | exp . OR exp
+   51 restOfListOfExp: COMMA exp . restOfListOfExp
+
+    COMMA             desplazar e ir al estado 94
+    OR                desplazar e ir al estado 44
+    AND               desplazar e ir al estado 45
+    GREATER_OR_EQUAL  desplazar e ir al estado 46
+    LESS_OR_EQUAL     desplazar e ir al estado 47
+    GREATER_THAN      desplazar e ir al estado 48
+    LESS_THAN         desplazar e ir al estado 49
+    EQUAL             desplazar e ir al estado 50
+    NOT_EQUAL         desplazar e ir al estado 51
+    PLUS              desplazar e ir al estado 52
+    MINUS             desplazar e ir al estado 53
+    MULTIPLICATION    desplazar e ir al estado 54
+    DIVISION          desplazar e ir al estado 55
+    MODULO            desplazar e ir al estado 56
+    DIVISION_ENTERA   desplazar e ir al estado 57
+    POWER             desplazar e ir al estado 58
+
+    $default  reduce usando la regla 50 (restOfListOfExp)
+
+    restOfListOfExp  ir al estado 99
+
+
+State 99
+
+   51 restOfListOfExp: COMMA exp restOfListOfExp .
+
+    $default  reduce usando la regla 51 (restOfListOfExp)

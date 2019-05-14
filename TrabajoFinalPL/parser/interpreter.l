@@ -62,7 +62,7 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 /* NEW in example 3 */
 /* STATE  */
 %x ERROR
-
+%x COMENTARIO
 /*! \name REGULAR EXPRESSIONS  */
 %%
 
@@ -76,6 +76,9 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 			/* COMMENTED in example 5 */
         	/* return NEWLINE; */
         }
+# 			{BEGIN COMENTARIO;}
+
+<COMENTARIO>#		{BEGIN 0;}
 
 ";"		{
 			/* NEW in example 5 */
@@ -145,6 +148,7 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 								return s->getToken();
 							}
                      }
+@.*		{}
 
 "_div"		{ return DIVISION_ENTERA;}
 
