@@ -169,7 +169,7 @@ SENTENCIAS DE CONTROL:	[ ]								CHECK
 			hasta cond
 
 		BUCLE "para"								[ ]
-			para identificador
+			para identificado
 				desde expr numerica 1
 				hasta expr numerica 2
 				paso expre numerica 3

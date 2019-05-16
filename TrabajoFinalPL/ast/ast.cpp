@@ -27,6 +27,7 @@
 // 
 #include "../table/numericVariable.hpp"
 #include "../table/logicalVariable.hpp"
+#include "../table/stringVariable.hpp"
 
 #include "../table/numericConstant.hpp"
 #include "../table/logicalConstant.hpp"
@@ -1308,6 +1309,54 @@ void lp::ReadStmt::evaluate()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::ReadChainStmt::print() 
+{
+  std::cout << "LeerCadenaStmt: "  << std::endl;
+  std::cout << " leer_cadena (" << this->_id << ")";
+  std::cout << std::endl;
+}
+
+
+void lp::ReadChainStmt::evaluate() 
+{   
+	std::string value;
+	std::cout << BIYELLOW; 
+	std::cout << "Inserta una cadena --> " ;
+	std::cout << RESET; 
+	std::cin >> value;
+
+	/* Get the identifier in the table of symbols as Variable */
+	lp::Variable *var = (lp::Variable *) table.getSymbol(this->_id);
+
+	// Check if the type of the variable is CHAIN
+	if (var->getType() == CHAIN)
+	{
+		/* Get the identifier in the table of symbols as StringVariable */
+		lp::StringVariable *n = (lp::StringVariable *) table.getSymbol(this->_id);
+						
+		/* Assignment the read value to the identifier */
+		n->setValue(value);
+	}
+	// The type of variable is not CHAIN
+	else
+	{
+		// Delete $1 from the table of symbols as Variable
+		table.eraseSymbol(this->_id);
+
+			// Insert $1 in the table of symbols as NumericVariable 
+		// with the type CHAIN and the read value 
+		lp::StringVariable *n = new lp::StringVariable(this->_id, 
+									  VARIABLE,CHAIN,value);
+
+		table.installSymbol(n);
+	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 
 void lp::EmptyStmt::print() 
 {

@@ -75,6 +75,7 @@ static struct {
 	      } keyword[] = {
 	                    "escribir", PRINT,
 	                    "leer",  READ,
+	                    "leer_cadena", READ_CHAIN,
 						"if",	 IF,   		// NEW in example 17
 						"else",	 ELSE, 		// NEW in example 17
 						"while",  WHILE,	// NEW in example 17

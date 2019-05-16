@@ -9,6 +9,7 @@
 /* NEW in example 4 */
 /* atof */
 #include <stdlib.h>
+#include <string>
 /*********************/
 
 /* Macros for the screen */
@@ -44,6 +45,8 @@ extern lp::Table table; //!< External Table of Symbols
 
 extern int lineNumber; //!< External line counter
 
+std::string str;
+
 %}
 
 
@@ -67,6 +70,7 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 /* STATE  */
 %x ERROR
 %x COMENTARIO
+%x CADENA
 /*! \name REGULAR EXPRESSIONS  */
 %%
 
@@ -95,6 +99,14 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 			return COMMA;
 		}
 
+"'"	{BEGIN CADENA;str="";}
+
+<CADENA>"'"		{BEGIN 0;yylval.chain=strdup(str.c_str());return CHAIN;}
+
+<CADENA>\\'		{str=str+"'";}
+
+<CADENA>.		{str=str+yytext;}
+
 {NUMBER1}|{NUMBER2}  {
 					  /* MODIFIED in example 4 */
 					  /* Conversion of type and sending of the numerical value to the parser */
@@ -107,7 +119,6 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 {IDENTIFIER}   		 {
 						 /* NEW in example 7 */
 						 std::string identifier(yytext);
-
 						for(int x=0;x<identifier.size();x++){
 							identifier[x]= tolower (identifier[x]);
 						}

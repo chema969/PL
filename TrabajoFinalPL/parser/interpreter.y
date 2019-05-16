@@ -132,6 +132,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
   char * identifier; 				 /* NEW in example 7 */
   double number;  
   bool logic;						 /* NEW in example 15 */
+  char* chain;
   lp::ExpNode *expNode;  			 /* NEW in example 16 */
   std::list<lp::ExpNode *>  *parameters;    // New in example 16; NOTE: #include<list> must be in interpreter.l, init.cpp, interpreter.cpp
   std::list<lp::Statement *> *stmts; /* NEW in example 16 */
@@ -149,7 +150,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print read if while block borrar lugar 
+%type <st> stmt asgn print read read_chain if while block borrar lugar 
 
 %type <prog> program
 
@@ -163,7 +164,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /*******************************************/
 
 // NEW in example 17: IF, ELSE, WHILE 
-%token PRINT READ IF ELSE WHILE BORRAR LUGAR
+%token PRINT READ READ_CHAIN IF ELSE WHILE BORRAR LUGAR
 
 // NEW in example 17
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
@@ -178,7 +179,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /* MODIFIED in example 4 */
 %token <number> NUMBER
 /*******************************************/
-
+%token <chain> CHAIN
 /*******************************************/
 /* NEW in example 15 */
 %token <logic> BOOL
@@ -287,6 +288,11 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;
 	  }
+	| read_chain SEMICOLON
+	  {
+		// Default action
+		// $$ = $1;
+	  }
 	| lugar SEMICOLON
 	  {
 		// Default action
@@ -391,7 +397,13 @@ borrar:  BORRAR
 		}
 ;	
 
-
+read_chain:  READ_CHAIN LPAREN VARIABLE RPAREN  
+		{
+			// Create a new read node
+			 $$ = new lp::ReadChainStmt($3);
+		}
+;		
+		
 read:  READ LPAREN VARIABLE RPAREN  
 		{
 			// Create a new read node

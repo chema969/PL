@@ -17,8 +17,9 @@
 
 #define ERROR_BOUND 1.0e-6  //!< Error bound for the comparison of real numbers.
 /*
-#define NUMBER 1
-#define BOOL 2
+#define NUMBER	 1
+#define BOOL	 2
+#denife CHAIN	 3
 */
 
 
@@ -1642,6 +1643,49 @@ class ReadStmt : public Statement
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+/*!	
+  \class   ReadChainStmt
+  \brief   Definition of atributes and methods of ReadChainStmt class
+  \note    ReadChainStmt Class publicly inherits from Statement class 
+		   and adds its own print and evaluate functions
+*/
+class ReadChainStmt : public Statement 
+{
+  private:
+	std::string _id; //!< Name of the ReadChainStmt
+	
+
+  public:
+/*!		
+	\brief Constructor of ReadChainStmt
+	\param id: string, name of the variable of the ReadChainStmt
+	\post  A new ReadChainStmt is created with the parameter
+*/
+  ReadChainStmt(std::string id)
+	{
+		this->_id = id;
+	}
+
+/*!
+	\brief   Print the ReadChainStmt
+	\return  void
+	\sa		 evaluate()
+*/
+  void print();
+
+/*!	
+	\brief   Evaluate the ReadChainStmt
+	\return  void
+	\sa		 print
+*/
+  void evaluate();
+};
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
 /*!	
   \class   EmptyStmt
