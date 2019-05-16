@@ -845,7 +845,7 @@ void lp::EqualNode::print()
 {
   std::cout << "EqualNode: " << std::endl;
   this->_left->print();
-  std::cout << " == ";
+  std::cout << " = ";
   this->_right->print();
 }
 
@@ -860,7 +860,7 @@ bool lp::EqualNode::evaluateBool()
 		rightNumber = this->_right->evaluateNumber();
 
 		// ERROR_BOUND to control the precision of real numbers
-		result = std::abs( (leftNumber - rightNumber) < ERROR_BOUND );
+		result = std::abs( (leftNumber - rightNumber)) < ERROR_BOUND ;
 	}
 	else
 	{
@@ -869,6 +869,7 @@ bool lp::EqualNode::evaluateBool()
 
 	return result;
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1186,8 +1187,8 @@ void lp::AssignmentStmt::evaluate()
 
 void lp::PrintStmt::print() 
 {
-  std::cout << "LeerStmt: "  << std::endl;
-  std::cout << " leer ";
+  std::cout << "EscribirStmt: "  << std::endl;
+  std::cout << " escribir ";
   this->_exp->print();
   std::cout << std::endl;
 }
@@ -1196,7 +1197,7 @@ void lp::PrintStmt::print()
 void lp::PrintStmt::evaluate() 
 {
 	std::cout << BIYELLOW; 
-	std::cout << "Leer: ";
+	std::cout << "Escribir: ";
 	std::cout << RESET; 
 
 	switch(this->_exp->getType())
@@ -1222,13 +1223,40 @@ void lp::PrintStmt::evaluate()
 
 void lp::BorrarStmt::print() 
 {
-  std::cout << CLEAR_SCREEN;
+  std::cout << "BorrarStmt";
 }
+
 
 
 void lp::BorrarStmt::evaluate() 
 {
   std::cout << CLEAR_SCREEN;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::LugarStmt::print() 
+{
+	std::cout << "LugarStmt( "  << std::endl;
+	this->_fila->print();
+	std::cout << " , ";
+	this->_columna->print();
+	std::cout << ") "  << std::endl;
+}
+
+void lp::LugarStmt::evaluate() 
+{
+
+	// Ckeck the types of the expressions
+	if (this->_fila->getType() == NUMBER && this->_columna->getType() == NUMBER)
+	{
+		PLACE((int)this->_fila->evaluateNumber(),(int)this->_columna->evaluateNumber());
+	}
+	else
+	{
+		warning("Runtime error: the expressions are not numeric for", "_lugar");
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1236,8 +1264,8 @@ void lp::BorrarStmt::evaluate()
 
 void lp::ReadStmt::print() 
 {
-  std::cout << "ReadStmt: "  << std::endl;
-  std::cout << " read (" << this->_id << ")";
+  std::cout << "LeerStmt: "  << std::endl;
+  std::cout << " leer (" << this->_id << ")";
   std::cout << std::endl;
 }
 
@@ -1246,7 +1274,7 @@ void lp::ReadStmt::evaluate()
 {   
 	double value;
 	std::cout << BIYELLOW; 
-	std::cout << "Insert a numeric value --> " ;
+	std::cout << "Inserta un valor numérico --> " ;
 	std::cout << RESET; 
 	std::cin >> value;
 

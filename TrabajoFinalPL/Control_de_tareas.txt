@@ -20,16 +20,16 @@ NO EXISTEN CONFLICTOS EN LAS REGLAS DE PRODUCCIÓN:		[ ]
 PALABRAS RESERVADAS:		[ ]							CHECK
 -----------------------------------------------------------------
 	_mod										[X]
-	_div										[ ]
+	_div										[X]
 
-	_o 										[ ]
-	_y										[ ]
-	_no										[ ]
+	_o 										[X]
+	_y										[X]
+	_no										[X]
 
-	leer										[ ]
+	leer										[X]
 	leer_cadena									[ ]
 
-	escribir									[ ]
+	escribir									[X]
 	escribir_cadena									[ ]
 
 	SENTENCIA CONDICIONAL:								[ ]
@@ -54,9 +54,9 @@ PALABRAS RESERVADAS:		[ ]							CHECK
 		paso									[ ]
 		fin_para								[ ]
 
-	MACROS:										[ ]
-		_borrar									[ ]
-		_lugar									[ ]
+	MACROS:										[X]
+		_borrar									[X]
+		_lugar									[X]
 
 	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS					[ ]
 	LAS PALABRAS RESERVADAS NO SON IDENTIFICADORES					[ ]
@@ -74,13 +74,13 @@ IDENTIFICADORES:		[X]							CHECK
 
 
 -----------------------------------------------------------------
-NÚMERO:					[ ]						CHECK
+NÚMERO:					[X]						CHECK
 -----------------------------------------------------------------
-	ENTEROS 									[ ]
-	REALES DE PUNTO FIJO								[ ]
-	REALES NOTACION CIENTIFICA							[ ]
+	ENTEROS 									[X]
+	REALES DE PUNTO FIJO								[X]
+	REALES NOTACION CIENTIFICA							[X]
 
-	TODOS SON TRATADOS COMO NÚMERO							[ ]
+	TODOS SON TRATADOS COMO NÚMERO							[X]
 
 -----------------------------------------------------------------
 CADENA:					[ ]						CHECK
@@ -110,40 +110,40 @@ OPERADORES:				[ ]						CHECK
 	ALFANUMERICOS									[ ]
 		CONCATENACION ||							[ ]
 
-	RELACIONALES NÚMEROS Y CADENAS							[ ]
-		MENOR QUE <								[ ]
-		MENOR O IGUAL QUE <=							[ ]
-		MAYOR QUE >								[ ]
-		MAYOR O IGUAL QUE >=							[ ]
-		DISTINTO DE <>								[ ]
+	RELACIONALES NÚMEROS Y CADENAS							[X]
+		MENOR QUE <								[X]
+		MENOR O IGUAL QUE <=							[X]
+		MAYOR QUE >								[X]
+		MAYOR O IGUAL QUE >=							[X]
+		DISTINTO DE <>								[X]
 
-	LOGICOS										[ ]
-		DISYUNCIÓN _o								[ ]
-		CONJUNCIÓN _y								[ ]
-		NEGACIÓN   _no								[ ]
+	LOGICOS										[X]
+		DISYUNCIÓN _o								[X]
+		CONJUNCIÓN _y								[X]
+		NEGACIÓN   _no								[X]
 
 -----------------------------------------------------------------
-OTROS:					[ ]						CHECK
+OTROS:					[X]						CHECK
 -----------------------------------------------------------------
-	COMENTARIOS									[ ]
-		VARIAS LINEAS: DELIMITADORES #	.... #					[ ]
-		UNA LÍNEA: DELIMITADOR @						[ ]
+	COMENTARIOS									[X]
+		VARIAS LINEAS: DELIMITADORES #	.... #					[X]
+		UNA LÍNEA: DELIMITADOR @						[X]
 
 	FIN DE LINEA ;									[;]
 
 -----------------------------------------------------------------
 SENTENCIAS DE CONTROL:	[ ]								CHECK
 -----------------------------------------------------------------
-	ASIGNACION									[ ]
-		IDENTIFICADOR := EXPR NUMÉRICA						[ ]
+	ASIGNACION									[X]
+		IDENTIFICADOR := EXPR NUMÉRICA						[X]
 		IDENTIFICADOR := EXPR ALFANUMÉRICA					[ ]
 
 	LECTURA										[ ]
-		Leer(identificador)							[ ]
+		Leer(identificador)							[X]
 		Leer_cadena(identificador)						[ ]
 
 	ESCRITURA									[ ]
-		Escribir								[ ]
+		Escribir								[X]
 		Escribir_cadena								[ ]
 
 	SENTENCIAS DE CONTROL								[ ]
@@ -178,10 +178,10 @@ SENTENCIAS DE CONTROL:	[ ]								CHECK
 			fin_para
 
 -----------------------------------------------------------------
-COMANDOS ESPECIALES:	[ ]								CHECK
+COMANDOS ESPECIALES:	[X]								CHECK
 -----------------------------------------------------------------
-	_borrar										[ ]
-	_lugar(expr numérica 1, expr numérica 2)					[ ]
+	_borrar										[X]
+	_lugar(expr numérica 1, expr numérica 2)					[X]
 
 -----------------------------------------------------------------
 OBSERVACIONES:			[ ]							CHECK
@@ -212,10 +212,10 @@ CONTROL DE ERRORES:		[ ]							CHECK
 		OTROS									[ ]
 
 -----------------------------------------------------------------
-MODOS DE EJECUCIÓN:		[ ]							CHECK
+MODOS DE EJECUCIÓN:		[X]							CHECK
 -----------------------------------------------------------------
-	INTERACTIVO									[ ]
-	DESDE FICHERO									[ ]
+	INTERACTIVO									[X]
+	DESDE FICHERO									[X]
 
 -----------------------------------------------------------------
 OPCIONALES:				[ ]						CHECK

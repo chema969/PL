@@ -53,9 +53,13 @@ DIGIT  [0-9]
 
 LETTER [a-zA-Z]
 
-NUMBER1 {DIGIT}+\.?
+NUMBER1 {DIGIT}+\.?([Ee][\+\-]?{DIGIT}+)?
 
-NUMBER2 {DIGIT}*\.{DIGIT}+
+NUMBER2 {DIGIT}*\.{DIGIT}+([Ee][\+\-]?{DIGIT}+)?
+
+ERRORNUMBER1 {DIGIT}+\.?[Ee][\+\-]?
+
+ERRORNUMBER2 {DIGIT}*\.{DIGIT}+[Ee][\+\-]?
 
 IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 
@@ -192,20 +196,11 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 
 "}"		{ return RIGHTCURLYBRACKET; }	/* NEW in example 17 */
 
-"_borrar"     {return BORRAR;}
+(?i:_borrar)     {return BORRAR;}
 
+(?i:_lugar)     {return LUGAR; }
 
-^# { /* The interpreter finishes when the symbol # is written at the beginning of the line */
-	// std::cout << CLEAR_SCREEN; 
-	//  PLACE(24,10);
-  	  std::cout <<  BIYELLOW;
-   	  std::cout <<  ">>>>>>> End of program <<<<<<<";
- 	  std::cout << std::endl;
-   	  std::cout << RESET;
-	 // PLACE(25,1);
-
-  	  return 0;
-	}
+{ERRORNUMBER1}|{ERRORNUMBER2} {std::cout<<BIRED<<"  Error:"<<RESET<<"Exponencial sin exponente"<<std::endl;}
 
 <<EOF>> { /* The interpreter finishes when finds the end of file character */
 		/*  PLACE(24,10);

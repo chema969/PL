@@ -1515,6 +1515,45 @@ class BorrarStmt: public Statement
 */
   void evaluate();
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/*!	
+  \class   LugarStmt
+  \brief   Definition of atributes and methods of LugarStmt class
+  \note    LugarStmt Class publicly inherits from Statement class 
+		   and adds its own print and evaluate functions
+  \warning  In this class, print and evaluate functions have the same meaning.
+*/
+class LugarStmt: public Statement 
+{
+ private:
+ExpNode *_fila, *_columna;
+ public:
+/*!		
+	\brief Constructor of LugarStmt 
+	\post  A new LugarStmt is created 
+*/
+  LugarStmt(ExpNode *A, ExpNode *B)
+	{
+	this->_fila=A; this->_columna=B;
+	}
+
+/*!
+	\brief   Print the LugarStmt
+	\return  void
+	\sa		 evaluate()
+*/
+  void print();
+
+/*!	
+	\brief   Evaluate the LugarStmt
+	\return  double
+	\sa		 print
+*/
+  void evaluate();
+};
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 

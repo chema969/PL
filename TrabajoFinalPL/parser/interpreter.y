@@ -149,7 +149,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print read if while block borrar
+%type <st> stmt asgn print read if while block borrar lugar 
 
 %type <prog> program
 
@@ -163,7 +163,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /*******************************************/
 
 // NEW in example 17: IF, ELSE, WHILE 
-%token PRINT READ IF ELSE WHILE BORRAR
+%token PRINT READ IF ELSE WHILE BORRAR LUGAR
 
 // NEW in example 17
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
@@ -287,6 +287,11 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;
 	  }
+	| lugar SEMICOLON
+	  {
+		// Default action
+		// $$ = $1;
+	  }
 	/*  NEW in example 17 */
 	| if 
 	 {
@@ -392,15 +397,18 @@ read:  READ LPAREN VARIABLE RPAREN
 			// Create a new read node
 			 $$ = new lp::ReadStmt($3);
 		}
-
-  	  /* NEW rule in example 11 */
 	| READ LPAREN CONSTANT RPAREN  
 		{   
  			execerror("Semantic error in \"read statement\": it is not allowed to modify a constant ",$3);
 		}
 ;
 
-
+lugar:  LUGAR LPAREN exp COMMA exp RPAREN  
+		{
+			// Create a new read node
+			 $$ = new lp::LugarStmt($3,$5);
+		}
+;
 exp:	NUMBER 
 		{ 
 			// Create a new number node
