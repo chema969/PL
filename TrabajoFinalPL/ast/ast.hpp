@@ -19,7 +19,7 @@
 /*
 #define NUMBER	 1
 #define BOOL	 2
-#denife CHAIN	 3
+#define CHAIN	 3
 */
 
 
@@ -76,6 +76,16 @@ namespace lp
 		return false;
 	}
 
+	/*!	
+		\brief   Evaluate the expression as BOOL
+		\warning Virtual function: could be redefined in the heir classes
+		\return  bool
+		\sa		 print
+	*/
+    virtual std::string evaluateString()
+	{
+		return "";
+	}
 };
 
 
@@ -133,6 +143,13 @@ class VariableNode : public ExpNode
 	*/
 	  bool evaluateBool();
 
+	/*!	
+		\brief   Evaluate the Variable as CHAIN
+		\return  bool
+		\sa		 print
+	*/
+	  std::string evaluateString();
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -187,6 +204,15 @@ class ConstantNode : public ExpNode
 		\sa		 print
 	*/
 	  bool evaluateBool();
+
+
+	/*!	
+		\brief   Evaluate the Variable as CHAIN
+		\return  bool
+		\sa		 print
+	*/
+	  std::string evaluateString();
+
 };
 
 
@@ -239,6 +265,57 @@ class NumberNode : public ExpNode
 		\sa		 print
 	*/
 	double evaluateNumber();
+};
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/*!	
+  \class StringNode
+  \brief Definition of atributes and methods of StringNode class
+  \note  StringNode Class publicly inherits from ExpNode class
+*/
+class StringNode : public ExpNode 
+{
+ private: 	
+   std::string _chain; //!< \brief string of the StringNode
+ 
+ public:
+
+/*!		
+	\brief Constructor of StringNode
+	\param value: string
+	\post  A new StringNode is created with the value of the parameter
+	\note  Inline function
+*/
+  StringNode(std::string value)
+	{
+	    this->_chain = value;
+	}
+
+	/*!	
+	\brief   Get the type of the expression: CHAIN
+	\return  int
+	\sa		 print
+	*/
+	int getType();
+
+	/*!
+		\brief   Print the expression
+		\return  void
+		\sa		 evaluate()
+	*/
+	void print();
+
+	/*!	
+		\brief   Evaluate the expression
+		\return  string
+		\sa		 print
+	*/
+	std::string evaluateString();
+
 };
 
 
@@ -1577,6 +1654,46 @@ class PrintStmt: public Statement
 	\post  A new PrintStmt is created with the parameter
 */
   PrintStmt(ExpNode *expression)
+	{
+		this->_exp = expression;
+	}
+
+/*!
+	\brief   Print the PrintStmt
+	\return  void
+	\sa		 evaluate()
+*/
+  void print();
+
+/*!	
+	\brief   Evaluate the PrintStmt
+	\return  double
+	\sa		 print
+*/
+  void evaluate();
+};
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/*!	
+  \class   PrintStmt
+  \brief   Definition of atributes and methods of PrintStmt class
+  \note    PrintStmt Class publicly inherits from Statement class 
+		   and adds its own print and evaluate functions
+  \warning  In this class, print and evaluate functions have the same meaning.
+*/
+class PrintChainStmt: public Statement 
+{
+ private:
+  ExpNode *_exp; //!< Expresssion the print statement
+
+ public:
+/*!		
+	\brief Constructor of PrintStmt 
+	\param expression: pointer to ExpNode
+	\post  A new PrintStmt is created with the parameter
+*/
+  PrintChainStmt(ExpNode *expression)
 	{
 		this->_exp = expression;
 	}

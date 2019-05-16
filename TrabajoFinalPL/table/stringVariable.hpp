@@ -53,8 +53,8 @@ class StringVariable:public lp::Variable
 	\post  A new StringVariable is created with the values of the parameters
 	\sa   setName, setValue
 */
-	inline StringVariable(std::string name="", int token = 0, int type = 0, std::string value="")
-	:Variable(name,token,type)
+	inline StringVariable(std::string name="", int token = 0, int type = 0, std::string value=""):
+	Variable(name,token,type)
 	{
 		this->setValue(value);
 	}

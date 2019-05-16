@@ -117,7 +117,26 @@ bool lp::VariableNode::evaluateBool()
 	return result;
 }
 
+std::string lp::VariableNode::evaluateString(){
+	std::string result = "";
 
+	if (this->getType() == CHAIN)
+	{
+		// Get the identifier in the table of symbols as LogicalVariable
+		lp::StringVariable *var = (lp::StringVariable *) table.getSymbol(this->_id);
+
+		// Copy the value of the LogicalVariable
+		result = var->getValue();
+	}
+	else
+	{
+		warning("Runtime error in evaluateString(): the variable is not a string",
+				   this->_id);
+	}
+
+	// Return the value of the LogicalVariable
+	return result;
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -181,6 +200,26 @@ bool lp::ConstantNode::evaluateBool()
 	return result;
 }
 
+std::string lp::ConstantNode::evaluateString(){
+	std::string result = "";
+
+	if (this->getType() == CHAIN)
+	{
+		// Get the identifier in the table of symbols as LogicalVariable
+		lp::StringVariable *var = (lp::StringVariable *) table.getSymbol(this->_id);
+
+		// Copy the value of the LogicalVariable
+		result = var->getValue();
+	}
+	else
+	{
+		warning("Runtime error in evaluateString(): the variable is not a string",
+				   this->_id);
+	}
+
+	// Return the value of the LogicalVariable
+	return result;
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -200,6 +239,26 @@ void lp::NumberNode::print()
 double lp::NumberNode::evaluateNumber() 
 { 
     return this->_number; 
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+int lp::StringNode::getType()
+{
+	return CHAIN;
+}
+
+
+void lp::StringNode::print()
+{
+  std::cout << "StringNode: " << this->_chain << std::endl;
+}
+
+std::string lp::StringNode::evaluateString() 
+{ 
+    return this->_chain; 
 }
 
 
@@ -1092,6 +1151,35 @@ void lp::AssignmentStmt::evaluate()
 			}
 			break;
 
+			case CHAIN:
+			{
+				std::string value;
+				// evaluate the expression as NUMBER
+			 	value = this->_exp->evaluateString();
+
+				// Check the type of the first varible
+				if (firstVar->getType() == CHAIN)
+				{
+				  	// Get the identifier in the table of symbols as NumericVariable
+					lp::StringVariable *v = (lp::StringVariable *) table.getSymbol(this->_id);
+
+					// Assignment the value to the identifier in the table of symbols
+					v->setValue(value);
+				}
+				// The type of variable is not NUMBER
+				else
+				{
+					// Delete the variable from the table of symbols 
+					table.eraseSymbol(this->_id);
+
+					// Insert the variable in the table of symbols as NumericVariable 
+					// with the type NUMBER and the value 
+					lp::StringVariable *v = new lp::StringVariable(this->_id,
+											VARIABLE,CHAIN,value);
+					table.installSymbol(v);
+				}
+			}
+			break;
 			default:
 				warning("Runtime error: incompatible type of expression for ", "Assigment");
 		}
@@ -1176,6 +1264,36 @@ void lp::AssignmentStmt::evaluate()
 			}
 			break;
 
+			//case CHAIN:
+			//{
+				/* Get the identifier of the previous asgn in the table of symbols as LogicalVariable */
+				//lp::StringVariable *secondVar = (lp::StringVariable *) table.getSymbol(this->_asgn->_id);
+				// Check the type of the first variable
+				//if (firstVar->getType() == NUMBER)
+				//{
+				/* Get the identifier of the first variable in the table of symbols as LogicalVariable */
+				//lp::StringVariable *firstVar = (lp::StringVariable *) table.getSymbol(this->_id);
+				  	// Get the identifier o f the in the table of symbols as NumericVariable
+//					lp::NumericVariable *n = (lp::NumericVariable *) table.getSymbol(this->_id);
+
+					// Assignment the value of the second variable to the first variable
+				//	firstVar->setValue(secondVar->getValue());
+
+				//}
+				// The type of variable is not NUMBER
+				//else
+				//{
+					// Delete the first variable from the table of symbols 
+					//table.eraseSymbol(this->_id);
+
+					// Insert the first variable in the table of symbols as NumericVariable 
+					// with the type BOOL and the value of the previous variable 
+					//lp::StringVariable *firstVar = new lp::LogicalVariable(this->_id,
+					//						VARIABLE,BOOL,secondVar->getValue());
+					//table.installSymbol(firstVar);
+				//}
+			//}
+			//break;
 			default:
 				warning("Runtime error: incompatible type of expression for ", "Assigment");
 		}
@@ -1197,9 +1315,9 @@ void lp::PrintStmt::print()
 
 void lp::PrintStmt::evaluate() 
 {
-	std::cout << BIYELLOW; 
-	std::cout << "Escribir: ";
-	std::cout << RESET; 
+	/*std::cout << BIYELLOW; 
+	std::cout << "Escribir : ";
+	std::cout << RESET; */
 
 	switch(this->_exp->getType())
 	{
@@ -1215,10 +1333,37 @@ void lp::PrintStmt::evaluate()
 			break;
 
 		default:
-			warning("Runtime error: incompatible type for ", "leer");
+			warning("Runtime error: incompatible type for ", "escribir");
 	}
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::PrintChainStmt::print() 
+{
+  std::cout << "EscribirStmt: "  << std::endl;
+  std::cout << " escribir ";
+  this->_exp->print();
+  std::cout << std::endl;
+}
+
+
+void lp::PrintChainStmt::evaluate() 
+{
+	/*std::cout << BIYELLOW; 
+	std::cout << "Escribir : ";
+	std::cout << RESET; */
+
+	switch(this->_exp->getType())
+	{
+		case CHAIN:
+				std::cout << this->_exp->evaluateString() << std::endl;
+				break;
+		default:
+			warning("Runtime error: incompatible type for ", "escribir_cadena");
+	}
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 

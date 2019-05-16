@@ -150,7 +150,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print read read_chain if while block borrar lugar 
+%type <st> stmt asgn print print_chain read read_chain if while block borrar lugar 
 
 %type <prog> program
 
@@ -164,7 +164,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /*******************************************/
 
 // NEW in example 17: IF, ELSE, WHILE 
-%token PRINT READ READ_CHAIN IF ELSE WHILE BORRAR LUGAR
+%token PRINT PRINT_CHAIN READ READ_CHAIN IF ELSE WHILE BORRAR LUGAR
 
 // NEW in example 17
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
@@ -278,6 +278,11 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;
 	  }
+	| print_chain SEMICOLON
+	  {
+		// Default action
+		// $$ = $1;
+	  }
 	| read SEMICOLON
 	  {
 		// Default action
@@ -382,6 +387,12 @@ asgn:   VARIABLE ASSIGNMENT exp
 		}
 ;
 
+print_chain:  PRINT_CHAIN exp 
+		{
+			// Create a new print node
+			 $$ = new lp::PrintChainStmt($2);
+		}
+; 
 
 print:  PRINT exp 
 		{
@@ -426,7 +437,11 @@ exp:	NUMBER
 			// Create a new number node
 			$$ = new lp::NumberNode($1);
 		}
-
+	| CHAIN 
+		{ 
+			// Create a new number node
+			$$ = new lp::StringNode($1);
+		}
 	| 	exp PLUS exp 
 		{ 
 			// Create a new plus node

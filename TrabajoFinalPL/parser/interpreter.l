@@ -105,6 +105,10 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 
 <CADENA>\\'		{str=str+"'";}
 
+<CADENA>\\n		{str=str+"\n";}
+
+<CADENA>\\t		{str=str+"\t";}
+
 <CADENA>.		{str=str+yytext;}
 
 {NUMBER1}|{NUMBER2}  {
