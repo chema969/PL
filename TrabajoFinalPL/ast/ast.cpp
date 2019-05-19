@@ -318,6 +318,21 @@ int lp::NumericOperatorNode::getType()
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+int lp::StringOperatorNode::getType()
+{
+	int result = 0;
+		
+	if ( (this->_left->getType() == CHAIN) and (this->_right->getType() == CHAIN))
+		result = CHAIN;
+	else
+		warning("Runtime error: incompatible types for", "String Operator");
+
+	return	result;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 
 int lp::RelationalOperatorNode::getType()
 {
@@ -1061,6 +1076,33 @@ bool lp::NotNode::evaluateBool()
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::ConcatenationNode::print() 
+{
+  std::cout << "ConcatenationNode: "  << std::endl;
+  this->_left->print();
+  std::cout << " - ";
+  this->_right->print();
+}
+
+std::string lp::ConcatenationNode::evaluateNumber() 
+{
+	std::string result = "";
+
+	// Ckeck the types of the expressions
+	if (this->getType() == CHAIN)
+	{
+		result = this->_left->evaluateString() + this->_right->evaluateString();
+	}
+	else
+	{
+		warning("Runtime error: the expressions are not numeric for ", "Minus");
+	}
+
+  return result;
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1238,7 +1280,7 @@ void lp::AssignmentStmt::evaluate()
 				/* Get the identifier of the previous asgn in the table of symbols as LogicalVariable */
 				lp::LogicalVariable *secondVar = (lp::LogicalVariable *) table.getSymbol(this->_asgn->_id);
 				// Check the type of the first variable
-				if (firstVar->getType() == NUMBER)
+				if (firstVar->getType() == BOOL)
 				{
 				/* Get the identifier of the first variable in the table of symbols as LogicalVariable */
 				lp::LogicalVariable *firstVar = (lp::LogicalVariable *) table.getSymbol(this->_id);
@@ -1264,36 +1306,36 @@ void lp::AssignmentStmt::evaluate()
 			}
 			break;
 
-			//case CHAIN:
-			//{
+			case CHAIN:
+			{
 				/* Get the identifier of the previous asgn in the table of symbols as LogicalVariable */
-				//lp::StringVariable *secondVar = (lp::StringVariable *) table.getSymbol(this->_asgn->_id);
+				lp::StringVariable *secondVar = (lp::StringVariable *) table.getSymbol(this->_asgn->_id);
 				// Check the type of the first variable
-				//if (firstVar->getType() == NUMBER)
-				//{
+				if (firstVar->getType() == CHAIN)
+				{
 				/* Get the identifier of the first variable in the table of symbols as LogicalVariable */
-				//lp::StringVariable *firstVar = (lp::StringVariable *) table.getSymbol(this->_id);
+				lp::StringVariable *firstVar = (lp::StringVariable *) table.getSymbol(this->_id);
 				  	// Get the identifier o f the in the table of symbols as NumericVariable
 //					lp::NumericVariable *n = (lp::NumericVariable *) table.getSymbol(this->_id);
 
 					// Assignment the value of the second variable to the first variable
-				//	firstVar->setValue(secondVar->getValue());
+					firstVar->setValue(secondVar->getValue());
 
-				//}
-				// The type of variable is not NUMBER
-				//else
-				//{
+				}
+				// The type of variable is not CHAIN
+				else
+				{
 					// Delete the first variable from the table of symbols 
-					//table.eraseSymbol(this->_id);
+					table.eraseSymbol(this->_id);
 
 					// Insert the first variable in the table of symbols as NumericVariable 
-					// with the type BOOL and the value of the previous variable 
-					//lp::StringVariable *firstVar = new lp::LogicalVariable(this->_id,
-					//						VARIABLE,BOOL,secondVar->getValue());
-					//table.installSymbol(firstVar);
-				//}
-			//}
-			//break;
+					// with the type CHAIN and the value of the previous variable 
+					lp::StringVariable *firstVar = new lp::LogicalVariable(this->_id,
+											VARIABLE,CHAIN,secondVar->getValue());
+					table.installSymbol(firstVar);
+				}
+			}
+			break;
 			default:
 				warning("Runtime error: incompatible type of expression for ", "Assigment");
 		}
