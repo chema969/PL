@@ -1532,7 +1532,7 @@ class ConcatenationNode : public StringOperatorNode
 	\return  std::string
 	\sa		 print
 */
-  std::string evaluateNumber();
+  std::string evaluateString();
 };
 
 

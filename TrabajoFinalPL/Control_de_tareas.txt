@@ -27,10 +27,10 @@ PALABRAS RESERVADAS:		[ ]							CHECK
 	_no										[X]
 
 	leer										[X]
-	leer_cadena									[ ]
+	leer_cadena									[X]
 
 	escribir									[X]
-	escribir_cadena									[ ]
+	escribir_cadena									[X]
 
 	SENTENCIA CONDICIONAL:								[ ]
 		si									[ ]
@@ -58,8 +58,8 @@ PALABRAS RESERVADAS:		[ ]							CHECK
 		_borrar									[X]
 		_lugar									[X]
 
-	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS					[ ]
-	LAS PALABRAS RESERVADAS NO SON IDENTIFICADORES					[ ]
+	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS					[X]
+	LAS PALABRAS RESERVADAS NO SON IDENTIFICADORES					[X]
 
 
 -----------------------------------------------------------------
@@ -83,15 +83,15 @@ NÚMERO:					[X]						CHECK
 	TODOS SON TRATADOS COMO NÚMERO							[X]
 
 -----------------------------------------------------------------
-CADENA:					[ ]						CHECK
+CADENA:					[X]						CHECK
 -----------------------------------------------------------------
-	CARACTERES DELIMITADOS POR COMILLAS SIMPLES 					[ ]
-	INCLUYE COMILLA SIMPLE CON \ \'							[ ]
+	CARACTERES DELIMITADOS POR COMILLAS SIMPLES 					[X]
+	INCLUYE COMILLA SIMPLE CON \ \'							[X]
 
-	COMILLAS EXTERIORES NO SON PARTE DE LA CADENA 					[ ]
+	COMILLAS EXTERIORES NO SON PARTE DE LA CADENA 					[X]
 
 -----------------------------------------------------------------
-OPERADORES:				[ ]						CHECK
+OPERADORES:				[X]						CHECK
 -----------------------------------------------------------------
 	NUMERICOS									[X]
 		ASIGNACION :=								[X]
@@ -107,8 +107,8 @@ OPERADORES:				[ ]						CHECK
 		MODULO _mod								[X]
 		POTENCIA **								[X]
 
-	ALFANUMERICOS									[ ]
-		CONCATENACION ||							[ ]
+	ALFANUMERICOS									[X]
+		CONCATENACION ||							[X]
 
 	RELACIONALES NÚMEROS Y CADENAS							[X]
 		MENOR QUE <								[X]
@@ -136,15 +136,15 @@ SENTENCIAS DE CONTROL:	[ ]								CHECK
 -----------------------------------------------------------------
 	ASIGNACION									[X]
 		IDENTIFICADOR := EXPR NUMÉRICA						[X]
-		IDENTIFICADOR := EXPR ALFANUMÉRICA					[ ]
+		IDENTIFICADOR := EXPR ALFANUMÉRICA					[X]
 
-	LECTURA										[ ]
+	LECTURA										[X]
 		Leer(identificador)							[X]
-		Leer_cadena(identificador)						[ ]
+		Leer_cadena(identificador)						[X]
 
-	ESCRITURA									[ ]
+	ESCRITURA									[X]
 		Escribir								[X]
-		Escribir_cadena								[ ]
+		Escribir_cadena								[X]
 
 	SENTENCIAS DE CONTROL								[ ]
 		CONDICIONAL SIMPLE							[ ]
@@ -184,9 +184,9 @@ COMANDOS ESPECIALES:	[X]								CHECK
 	_lugar(expr numérica 1, expr numérica 2)					[X]
 
 -----------------------------------------------------------------
-OBSERVACIONES:			[ ]							CHECK
+OBSERVACIONES:			[X]							CHECK
 -----------------------------------------------------------------
-	CAMBIO DE TIPO DINÁMICO								[ ]
+	CAMBIO DE TIPO DINÁMICO								[X]
 
 
 -----------------------------------------------------------------
@@ -195,6 +195,7 @@ CONTROL DE ERRORES:		[ ]							CHECK
 	LÉXICOS
 		IDENTIFICADOR MAL ESCRITO 						[ ]
 		SIMBOLO NO PERMITIDO							[ ]
+		NUMERO MAL ESCRITO							[X]
 		OTROS									[ ]
 
 	SINTÁCTICOS									[ ]

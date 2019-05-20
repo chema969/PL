@@ -338,7 +338,7 @@ int lp::RelationalOperatorNode::getType()
 {
 	int result = 0;
 		
-	if ( (this->_left->getType() == NUMBER) and (this->_right->getType() == NUMBER))
+	if (( (this->_left->getType() == NUMBER) and (this->_right->getType() == NUMBER)) or( (this->_left->getType() == CHAIN) and (this->_right->getType() == CHAIN)))
 		result = BOOL;
 	else
 		warning("Runtime error: incompatible types for", "Relational Operator");
@@ -798,7 +798,7 @@ bool lp::GreaterThanNode::evaluateBool()
 {
 	bool result = false;
 
-	if (this->getType() == BOOL)
+	if (this->getType() == BOOL and this->_left->getType()==NUMBER and this->_right->getType()==NUMBER )
 	{
 		double leftNumber, rightNumber;
 		leftNumber = this->_left->evaluateNumber();
@@ -806,8 +806,15 @@ bool lp::GreaterThanNode::evaluateBool()
 
 		result = (leftNumber > rightNumber);
 	}
-	else
+	else if(this->getType() == BOOL and this->_left->getType()==CHAIN and this->_right->getType()==CHAIN )
 	{
+		std::string leftChain, rightChain;
+		leftChain = this->_left->evaluateString();
+		rightChain = this->_right->evaluateString();
+
+		result = (leftChain > rightChain);	
+	}
+	else{
 		warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
 	}
 
@@ -830,7 +837,7 @@ bool lp::GreaterOrEqualNode::evaluateBool()
 {
 	bool result = false;
 
-	if (this->getType() == BOOL)
+	if (this->getType() == BOOL and this->_left->getType()==NUMBER and this->_right->getType()==NUMBER )
 	{
 		double leftNumber, rightNumber;
 		leftNumber = this->_left->evaluateNumber();
@@ -838,9 +845,16 @@ bool lp::GreaterOrEqualNode::evaluateBool()
 
 		result = (leftNumber >= rightNumber);
 	}
-	else
+	else if(this->getType() == BOOL and this->_left->getType()==CHAIN and this->_right->getType()==CHAIN )
 	{
-		warning("Runtime error: incompatible types of parameters for ", "operator Greater or equal than");
+		std::string leftChain, rightChain;
+		leftChain = this->_left->evaluateString();
+		rightChain = this->_right->evaluateString();
+
+		result = (leftChain >= rightChain);	
+	}
+	else{
+		warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
 	}
 
 	return result;
@@ -863,7 +877,7 @@ bool lp::LessThanNode::evaluateBool()
 {
 	bool result = false;
 
-	if (this->getType() == BOOL)
+	if (this->getType() == BOOL and this->_left->getType()==NUMBER and this->_right->getType()==NUMBER )
 	{
 		double leftNumber, rightNumber;
 		leftNumber = this->_left->evaluateNumber();
@@ -871,9 +885,16 @@ bool lp::LessThanNode::evaluateBool()
 
 		result = (leftNumber < rightNumber);
 	}
-	else
+	else if(this->getType() == BOOL and this->_left->getType()==CHAIN and this->_right->getType()==CHAIN )
 	{
-		warning("Runtime error: incompatible types of parameters for ", "operator Less than");
+		std::string leftChain, rightChain;
+		leftChain = this->_left->evaluateString();
+		rightChain = this->_right->evaluateString();
+
+		result = (leftChain < rightChain);	
+	}
+	else{
+		warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
 	}
 
 	return result;
@@ -895,7 +916,7 @@ bool lp::LessOrEqualNode::evaluateBool()
 {
 	bool result = false;
 
-	if (this->getType() == BOOL)
+	if (this->getType() == BOOL and this->_left->getType()==NUMBER and this->_right->getType()==NUMBER )
 	{
 		double leftNumber, rightNumber;
 		leftNumber = this->_left->evaluateNumber();
@@ -903,9 +924,16 @@ bool lp::LessOrEqualNode::evaluateBool()
 
 		result = (leftNumber <= rightNumber);
 	}
-	else
+	else if(this->getType() == BOOL and this->_left->getType()==CHAIN and this->_right->getType()==CHAIN )
 	{
-		warning("Runtime error: incompatible types of parameters for ", "operator Less or equal than");
+		std::string leftChain, rightChain;
+		leftChain = this->_left->evaluateString();
+		rightChain = this->_right->evaluateString();
+
+		result = (leftChain <= rightChain);	
+	}
+	else{
+		warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
 	}
 
 	return result;
@@ -928,7 +956,7 @@ bool lp::EqualNode::evaluateBool()
 {
 	bool result = false;
 
-	if (this->getType() == BOOL)
+	if (this->getType() == BOOL and this->_left->getType()==NUMBER and this->_right->getType()==NUMBER )
 	{
 		double leftNumber, rightNumber;
 		leftNumber = this->_left->evaluateNumber();
@@ -936,6 +964,14 @@ bool lp::EqualNode::evaluateBool()
 
 		// ERROR_BOUND to control the precision of real numbers
 		result = std::abs( (leftNumber - rightNumber)) < ERROR_BOUND ;
+	}
+	else if(this->getType() == BOOL and this->_left->getType()==CHAIN and this->_right->getType()==CHAIN )
+	{
+		std::string leftChain, rightChain;
+		leftChain = this->_left->evaluateString();
+		rightChain = this->_right->evaluateString();
+
+		result = (leftChain == rightChain);	
 	}
 	else
 	{
@@ -962,7 +998,7 @@ bool lp::NotEqualNode::evaluateBool()
 {
 	bool result = false;
 
-	if (this->getType() == BOOL)
+	if (this->getType() == BOOL and this->_left->getType()==NUMBER and this->_right->getType()==NUMBER )
 	{
 		double leftNumber, rightNumber;
 		leftNumber = this->_left->evaluateNumber();
@@ -970,6 +1006,14 @@ bool lp::NotEqualNode::evaluateBool()
 
 		// ERROR_BOUND to control the precision of real numbers
 		result = std::abs( (leftNumber - rightNumber) >= ERROR_BOUND );
+	}
+	else if(this->getType() == BOOL and this->_left->getType()==CHAIN and this->_right->getType()==CHAIN )
+	{
+		std::string leftChain, rightChain;
+		leftChain = this->_left->evaluateString();
+		rightChain = this->_right->evaluateString();
+
+		result = (leftChain != rightChain);	
 	}
 	else
 	{
@@ -1087,7 +1131,7 @@ void lp::ConcatenationNode::print()
   this->_right->print();
 }
 
-std::string lp::ConcatenationNode::evaluateNumber() 
+std::string lp::ConcatenationNode::evaluateString() 
 {
 	std::string result = "";
 
@@ -1330,7 +1374,7 @@ void lp::AssignmentStmt::evaluate()
 
 					// Insert the first variable in the table of symbols as NumericVariable 
 					// with the type CHAIN and the value of the previous variable 
-					lp::StringVariable *firstVar = new lp::LogicalVariable(this->_id,
+					lp::StringVariable *firstVar = new lp::StringVariable(this->_id,
 											VARIABLE,CHAIN,secondVar->getValue());
 					table.installSymbol(firstVar);
 				}
@@ -1400,7 +1444,7 @@ void lp::PrintChainStmt::evaluate()
 	switch(this->_exp->getType())
 	{
 		case CHAIN:
-				std::cout << this->_exp->evaluateString() << std::endl;
+				std::cout << this->_exp->evaluateString();
 				break;
 		default:
 			warning("Runtime error: incompatible type for ", "escribir_cadena");

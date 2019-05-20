@@ -180,7 +180,7 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 "("     { return LPAREN; } 			/* NEW in example 3 */
 ")"	    { return RPAREN; } 			/* NEW in example 3 */
 
-
+\|\|	{return CONCATENACION;}
 
 "_mod"     { return MODULO; }			/* NEW in example 5 */
 
