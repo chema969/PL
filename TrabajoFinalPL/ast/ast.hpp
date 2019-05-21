@@ -2025,7 +2025,6 @@ class WhileStmt : public Statement
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
-// NEW in example 17
 
 /*!	
   \class   DoWhileStmt
@@ -2068,6 +2067,58 @@ class DoWhileStmt : public Statement
   void evaluate();
 };
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/*!	
+  \class   ForStmt
+  \brief   Definition of atributes and methods of ForStmt class
+  \note    ForStmt Class publicly inherits from Statement class 
+		   and adds its own print and evaluate functions
+*/
+class ForStmt : public Statement 
+{
+ private:
+  std::string _id;  //!< Id of the condition
+  ExpNode * _desde; //!< Iniciacion of the for statement
+  ExpNode * _hasta; //!< Condicion of the for statement
+  ExpNode * _paso; //!< Condicion of the for statement
+  Statement *_stmt; //!< Statement of the body of the for loop
+
+  public:
+/*!		
+	\brief Constructor of  ForStmt
+	\param id: Id of the condition
+	\param desde: Iniciacion of the loop 
+	\param hasta: Condicion of the loop 
+	\param statement: Statement of the body of the loop 
+	\post  A new ForStmt is created with the parameters
+*/
+  ForStmt(std::string id,ExpNode *desde, ExpNode *hasta, ExpNode * _paso ,Statement *statement)
+	{
+		this->_id = id;
+		this->_desde = desde;
+		this->_hasta = hasta;
+		this->_paso = paso;
+		this->_stmt = statement;
+	}
+
+
+/*!
+	\brief   Print the ForStmt
+	\return  void
+	\sa		 evaluate
+*/
+  void print();
+
+/*!	
+	\brief   Evaluate the ForStmt
+	\return  void
+	\sa		 print
+*/
+  void evaluate();
+};
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -150,7 +150,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print print_chain read read_chain if while do_while block borrar lugar 
+%type <st> stmt asgn print print_chain read read_chain if while do_while for block borrar lugar 
 
 %type <prog> program
 
@@ -320,6 +320,10 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;	
 	}
+	| for
+	  {
+
+	 }
 	/*  NEW in example 17 */
 	| block 
 	 {
@@ -363,6 +367,16 @@ while:  WHILE cond DO_IT stmt ENDWHILE
 do_while: DO stmt UNTIL cond
 	{
 		$$ = new lp::DoWhileStmt($2, $4);
+	}
+;
+
+for: FOR VARIABLE FROM exp UNTIL exp DO_IT stmt ENDFOR
+	{
+		
+	}
+	|FOR VARIABLE FROM exp UNTIL exp STEP exp DO_IT stmt ENDFOR
+	{
+
 	}
 ;
 	/*  NEW in example 17 */

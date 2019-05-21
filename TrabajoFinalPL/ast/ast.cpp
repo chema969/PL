@@ -1682,7 +1682,37 @@ void lp::DoWhileStmt::evaluate()
   do 
   {	
 	  this->_stmt->evaluate();
-  }while(this->_cond->evaluateBool() == true);
+  }while(this->_cond->evaluateBool() == false);
+
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::ForStmt::print() 
+{
+  std::cout << "ForStmt: "  << std::endl;
+
+  // Body of the for loop
+  this->_stmt->print();
+
+  // Condition
+  this->_cond->print();
+  std::cout << std::endl;
+}
+
+
+void lp::ForStmt::evaluate() 
+{
+   lp::AssignmentStmt aux=new lp::AssignmentStmt(this->_id, this->_desde);
+
+   lp::Variable *Var = (lp::Variable *) table.getSymbol(this->_id);
+   for(aux.evaluate();Var->evaluateNumber()!=this->_hasta->evaluateNumber();this->_paso->evaluate()){
+	  this->_stmt->evaluate();
+   }
+  // the body is run while the condition is true
+  
 
 }
 
