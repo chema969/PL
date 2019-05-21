@@ -150,7 +150,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print print_chain read read_chain if while block borrar lugar 
+%type <st> stmt asgn print print_chain read read_chain if while do_while block borrar lugar 
 
 %type <prog> program
 
@@ -164,7 +164,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /*******************************************/
 
 // NEW in example 17: IF, ELSE, WHILE 
-%token PRINT PRINT_CHAIN READ READ_CHAIN IF ELSE WHILE BORRAR LUGAR
+%token PRINT PRINT_CHAIN READ READ_CHAIN IF THEN ELSE ENDIF WHILE DO_IT ENDWHILE DO UNTIL FOR FROM STEP ENDFOR BORRAR LUGAR
 
 // NEW in example 17
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
@@ -315,6 +315,11 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;
 	 }
+	| do_while
+	 {
+		// Default action
+		// $$ = $1;	
+	}
 	/*  NEW in example 17 */
 	| block 
 	 {
@@ -333,28 +338,33 @@ block: LETFCURLYBRACKET stmtlist RIGHTCURLYBRACKET
  
 	/*  NEW in example 17 */
 if:	/* Simple conditional statement */
-	IF cond stmt 
+	IF cond THEN stmt ENDIF
     {
 		// Create a new if statement node
-		$$ = new lp::IfStmt($2, $3);
+		$$ = new lp::IfStmt($2, $4);
 	}
 
 	/* Compound conditional statement */
-	| IF cond stmt  ELSE stmt 
+	| IF cond THEN stmt  ELSE stmt ENDIF
 	 {
 		// Create a new if statement node
-		$$ = new lp::IfStmt($2, $3, $5);
+		$$ = new lp::IfStmt($2, $4, $6);
 	 }
 ;
 
 	/*  NEW in example 17 */
-while:  WHILE cond stmt 
+while:  WHILE cond DO_IT stmt ENDWHILE
 		{
 			// Create a new while statement node
-			$$ = new lp::WhileStmt($2, $3);
+			$$ = new lp::WhileStmt($2, $4);
         }
 ;
 
+do_while: DO stmt UNTIL cond
+	{
+		$$ = new lp::DoWhileStmt($2, $4);
+	}
+;
 	/*  NEW in example 17 */
 cond: 	LPAREN exp RPAREN
 		{ 

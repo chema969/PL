@@ -1887,7 +1887,7 @@ class EmptyStmt : public Statement
 
   public:
 /*!		
-	\brief Constructor of  WhileStmt
+	\brief Constructor of  EmptyStmt
 	\post  A new EmptyStmt is created 
 */
   EmptyStmt()
@@ -2023,6 +2023,52 @@ class WhileStmt : public Statement
 };
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+// NEW in example 17
+
+/*!	
+  \class   DoWhileStmt
+  \brief   Definition of atributes and methods of DoWhileStmt class
+  \note    DoWhileStmt Class publicly inherits from Statement class 
+		   and adds its own print and evaluate functions
+*/
+class DoWhileStmt : public Statement 
+{
+ private:
+  ExpNode *_cond; //!< Condicion of the  do_while statement
+  Statement *_stmt; //!< Statement of the body of the do_while loop
+
+  public:
+/*!		
+	\brief Constructor of  DoWhileStmt
+	\param condition: ExpNode of the condition
+	\param statement: Statement of the body of the loop 
+	\post  A new DoWhileStmt is created with the parameters
+*/
+  DoWhileStmt( Statement *statement,ExpNode *condition)
+	{
+		this->_cond = condition;
+		this->_stmt = statement;
+	}
+
+
+/*!
+	\brief   Print the DoWhileStmt
+	\return  void
+	\sa		 evaluate
+*/
+  void print();
+
+/*!	
+	\brief   Evaluate the DoWhileStmt
+	\return  void
+	\sa		 print
+*/
+  void evaluate();
+};
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -2065,6 +2111,7 @@ class BlockStmt : public Statement
 */
   void evaluate();
 };
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

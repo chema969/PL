@@ -1552,9 +1552,6 @@ void lp::ReadChainStmt::print()
 void lp::ReadChainStmt::evaluate() 
 {   
 	std::string value;
-	std::cout << BIYELLOW; 
-	std::cout << "Inserta una cadena --> " ;
-	std::cout << RESET; 
 	std::cin >> value;
 
 	/* Get the identifier in the table of symbols as Variable */
@@ -1663,9 +1660,31 @@ void lp::WhileStmt::evaluate()
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::DoWhileStmt::print() 
+{
+  std::cout << "DoWhileStmt: "  << std::endl;
+
+  // Body of the while loop
+  this->_stmt->print();
+
+  // Condition
+  this->_cond->print();
+  std::cout << std::endl;
+}
 
 
+void lp::DoWhileStmt::evaluate() 
+{
+  // the body is run while the condition is true
+  do 
+  {	
+	  this->_stmt->evaluate();
+  }while(this->_cond->evaluateBool() == true);
 
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////

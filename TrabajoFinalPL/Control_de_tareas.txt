@@ -17,7 +17,7 @@ NO EXISTEN CONFLICTOS EN LAS REGLAS DE PRODUCCIÓN:		[ ]
 -----------------------------------------------------------------
 
 -----------------------------------------------------------------
-PALABRAS RESERVADAS:		[ ]							CHECK
+PALABRAS RESERVADAS:		[X]							CHECK
 -----------------------------------------------------------------
 	_mod										[X]
 	_div										[X]
@@ -32,27 +32,27 @@ PALABRAS RESERVADAS:		[ ]							CHECK
 	escribir									[X]
 	escribir_cadena									[X]
 
-	SENTENCIA CONDICIONAL:								[ ]
-		si									[ ]
-		entonces								[ ]
-		si_no									[ ]
-		fin_si									[ ]
+	SENTENCIA CONDICIONAL:								[X]
+		si									[X]
+		entonces								[X]
+		si_no									[X]
+		fin_si									[X]
 
-	SENTENCIA DE BUCLE MIENTRAS:							[ ]
-		mientras								[ ]
-		hacer									[ ]
-		fin_mientras								[ ]
+	SENTENCIA DE BUCLE MIENTRAS:							[X]
+		mientras								[X]
+		hacer									[X]
+		fin_mientras								[X]
 
-	SENTENCIA DE BUCLE REPETIR:							[ ]
-		repetir									[ ]
-		hasta									[ ]
+	SENTENCIA DE BUCLE REPETIR:							[X]
+		repetir									[X]
+		hasta									[X]
 
-	SENTENCIA DE BUCLE PARA:							[ ]
-		para									[ ]
-		desde									[ ]
-		hasta									[ ]
-		paso									[ ]
-		fin_para								[ ]
+	SENTENCIA DE BUCLE PARA:							[X]
+		para									[X]
+		desde									[X]
+		hasta									[X]
+		paso									[X]
+		fin_para								[X]
 
 	MACROS:										[X]
 		_borrar									[X]
@@ -147,23 +147,23 @@ SENTENCIAS DE CONTROL:	[ ]								CHECK
 		Escribir_cadena								[X]
 
 	SENTENCIAS DE CONTROL								[ ]
-		CONDICIONAL SIMPLE							[ ]
+		CONDICIONAL SIMPLE							[X]
 			si cond
 				entonces sentencias
 			fin_si
 
-		CONDICIONAL COMPUESTA							[ ]
+		CONDICIONAL COMPUESTA							[X]
 			si cond
 				entonces sentencias
 				si_no sentencias
 			fin_si
 
-		BUCLE "mientras"							[ ]
+		BUCLE "mientras"							[X]
 			mientras cond hacer
 						sentencias
 			fin_mientras
 
-		BUCLE "repetir"								[ ]
+		BUCLE "repetir"								[X]
 			repetir
 				sentencias
 			hasta cond

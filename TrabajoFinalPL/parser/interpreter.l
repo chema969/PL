@@ -88,6 +88,10 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 
 <COMENTARIO>#		{BEGIN 0;}
 
+<COMENTARIO>.		{;}
+
+<COMENTARIO>[ \t\n]	{;}
+
 ";"		{
 			/* NEW in example 5 */
 			return SEMICOLON;
