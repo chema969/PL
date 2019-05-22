@@ -208,7 +208,6 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %left MULTIPLICATION DIVISION MODULO DIVISION_ENTERA CONCATENACION
 
 %left LPAREN RPAREN
-
 %nonassoc  UNARY
 
 // Maximum precedence 
@@ -376,7 +375,7 @@ for: FOR VARIABLE FROM exp UNTIL exp DO_IT stmt ENDFOR
 	}
 	|FOR VARIABLE FROM exp UNTIL exp STEP exp DO_IT stmt ENDFOR
 	{
-
+		$$= new lp::ForStmt($2,$4,$6,$8,$10);
 	}
 ;
 	/*  NEW in example 17 */

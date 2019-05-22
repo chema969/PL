@@ -1694,21 +1694,85 @@ void lp::ForStmt::print()
 {
   std::cout << "ForStmt: "  << std::endl;
 
-  // Body of the for loop
-  this->_stmt->print();
-
-  // Condition
-  this->_cond->print();
   std::cout << std::endl;
 }
 
 
 void lp::ForStmt::evaluate() 
 {
-   lp::AssignmentStmt aux=new lp::AssignmentStmt(this->_id, this->_desde);
 
-   lp::Variable *Var = (lp::Variable *) table.getSymbol(this->_id);
-   for(aux.evaluate();Var->evaluateNumber()!=this->_hasta->evaluateNumber();this->_paso->evaluate()){
+   lp::VariableNode *var = new lp::VariableNode(this->_id);
+   switch(_desde->getType()){
+	case NUMBER:{
+		if (var->getType()==NUMBER )
+		{
+			/* Get the identifier in the table of symbols as NumericVariable */
+			lp::NumericVariable *n = (lp::NumericVariable *) table.getSymbol(this->_id);
+						
+			/* Assignment the read value to the identifier */
+			n->setValue(_desde->evaluateNumber());
+		}	
+		else
+		{
+			// Delete the first variable from the table of symbols 
+			table.eraseSymbol(this->_id);
+
+			// Insert the first variable in the table of symbols as NumericVariable 
+			// with the type NUMBER and the value of the previous variable 
+			lp::NumericVariable *firstVar = new lp::NumericVariable(this->_id,
+											VARIABLE,NUMBER,_desde->evaluateNumber());
+					table.installSymbol(firstVar);
+		}
+	}	
+	case CHAIN:{
+		if (var->getType()==CHAIN )
+		{
+			/* Get the identifier in the table of symbols as NumericVariable */
+			lp::StringVariable *n = (lp::StringVariable *) table.getSymbol(this->_id);
+						
+			/* Assignment the read value to the identifier */
+			n->setValue(_desde->evaluateString());
+		}	
+		else
+		{
+			// Delete the first variable from the table of symbols 
+			table.eraseSymbol(this->_id);
+
+			// Insert the first variable in the table of symbols as NumericVariable 
+			// with the type NUMBER and the value of the previous variable 
+			lp::StringVariable *firstVar = new lp::StringVariable(this->_id,
+											VARIABLE,CHAIN,_desde->evaluateString());
+					table.installSymbol(firstVar);
+		}	
+
+	}
+	case BOOL:{
+		if (var->getType()==BOOL )
+		{
+			/* Get the identifier in the table of symbols as NumericVariable */
+			lp::LogicalVariable *n = (lp::LogicalVariable *) table.getSymbol(this->_id);
+						
+			/* Assignment the read value to the identifier */
+			n->setValue(_desde->evaluateBool());
+		}	
+		else
+		{
+			// Delete the first variable from the table of symbols 
+			table.eraseSymbol(this->_id);
+
+			// Insert the first variable in the table of symbols as NumericVariable 
+			// with the type NUMBER and the value of the previous variable 
+			lp::LogicalVariable *firstVar = new lp::LogicalVariable(this->_id,
+											VARIABLE,BOOL,_desde->evaluateBool());
+					table.installSymbol(firstVar);
+		}	
+
+	}
+
+   }
+
+   var = new lp::VariableNode(this->_id);
+  	 for(;var->evaluateNumber()!=this->_hasta->evaluateNumber();this->_paso->evaluateNumber()){
 	  this->_stmt->evaluate();
    }
   // the body is run while the condition is true
