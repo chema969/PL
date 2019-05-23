@@ -2099,7 +2099,7 @@ class ForStmt : public Statement
 	\param statement: Statement of the body of the loop 
 	\post  A new ForStmt is created with the parameters
 */
-  ForStmt(std::string id,ExpNode *desde, ExpNode *hasta, ExpNode * paso ,Statement *statement)
+  ForStmt(std::string id,ExpNode *desde, ExpNode *hasta,Statement *statement,  ExpNode * paso=NULL)
 	{
 		this->_id = id;
 		this->_desde = desde;

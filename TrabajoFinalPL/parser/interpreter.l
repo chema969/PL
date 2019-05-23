@@ -64,7 +64,17 @@ ERRORNUMBER1 {DIGIT}+\.?[Ee][\+\-]?
 
 ERRORNUMBER2 {DIGIT}*\.{DIGIT}+[Ee][\+\-]?
 
+ERRORNUMERO3  {DIGIT}[a-df-zA-DF-Z_]+({DIGIT}|[a-df-zA-DF-Z_])*
+
+ERRORNUMERO4 {DIGIT}+\.?[Ee][Ee]+[\+\-]?
+
+ERRORNUMERO5 {DIGIT}*\.{DIGIT}+[Ee][Ee]+[\+\-]?
+
 IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
+
+ERRORIDENTIFIER1  {LETTER}((_)?({LETTER}|{DIGIT})+)*_+
+
+ERRORIDENTIFIER2  {LETTER}({LETTER}|{DIGIT})*(__+({LETTER}|{DIGIT})*)+
 
 /* NEW in example 3 */
 /* STATE  */
@@ -178,6 +188,10 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 "-"		{ return MINUS;  } 			/* NEW in example 3 */
 "+"		{ return PLUS;   } 			/* NEW in example 3 */
 
+"+:="		{return PLUS_ASSIGNMENT;}
+
+"-:="		{return MINUS_ASSIGNMENT;}
+
 "*"	    { return MULTIPLICATION; } 	/* NEW in example 3 */
 "/"     { return DIVISION; } 		/* NEW in example 3 */
 
@@ -219,8 +233,11 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 
 (?i:_lugar)     {return LUGAR; }
 
-{ERRORNUMBER1}|{ERRORNUMBER2} {std::cout<<BIRED<<"  Error:"<<RESET<<"Exponencial sin exponente"<<std::endl;}
+{ERRORNUMBER1}|{ERRORNUMBER2} {warning("Error lexico:","Exponencial sin exponente");}
 
+{ERRORNUMERO3}|{ERRORNUMERO5}|{ERRORNUMERO4} 	{warning("Error lexico:","Numero Erroneo");}
+
+{ERRORIDENTIFIER1}|{ERRORIDENTIFIER2}	{warning("Error lexico:","Identificador mal escrito");}
 <<EOF>> { /* The interpreter finishes when finds the end of file character */
 		/*  PLACE(24,10);
 	  	  std::cout <<  BICYAN;

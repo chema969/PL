@@ -132,7 +132,7 @@ OTROS:					[X]						CHECK
 	FIN DE LINEA ;									[;]
 
 -----------------------------------------------------------------
-SENTENCIAS DE CONTROL:	[ ]								CHECK
+SENTENCIAS DE CONTROL:	[X]								CHECK
 -----------------------------------------------------------------
 	ASIGNACION									[X]
 		IDENTIFICADOR := EXPR NUMÉRICA						[X]
@@ -146,7 +146,7 @@ SENTENCIAS DE CONTROL:	[ ]								CHECK
 		Escribir								[X]
 		Escribir_cadena								[X]
 
-	SENTENCIAS DE CONTROL								[ ]
+	SENTENCIAS DE CONTROL								[X]
 		CONDICIONAL SIMPLE							[X]
 			si cond
 				entonces sentencias
@@ -168,7 +168,7 @@ SENTENCIAS DE CONTROL:	[ ]								CHECK
 				sentencias
 			hasta cond
 
-		BUCLE "para"								[ ]
+		BUCLE "para"								[X]
 			para identificado
 				desde expr numerica 1
 				hasta expr numerica 2
@@ -193,18 +193,18 @@ OBSERVACIONES:			[X]							CHECK
 CONTROL DE ERRORES:		[ ]							CHECK
 -----------------------------------------------------------------
 	LÉXICOS
-		IDENTIFICADOR MAL ESCRITO 						[ ]
-		SIMBOLO NO PERMITIDO							[ ]
+		IDENTIFICADOR MAL ESCRITO 						[X]
+		SIMBOLO NO PERMITIDO							[X]
 		NUMERO MAL ESCRITO							[X]
-		OTROS									[ ]
+		OTROS									[X]
 
 	SINTÁCTICOS									[ ]
 		SENTENCIA DE CONTROL MAL ESCRITA					[ ]
 		SENTENCIA CON ARGUMENTOS INCOMPATIBLES					[ ]
 		OTROS									[ ]
 
-	SEMÁNTICOS									[ ]
-		ARGUMENTOS U OPERANDOS INCOMPATIBLES					[ ]
+	SEMÁNTICOS									[X]
+		ARGUMENTOS U OPERANDOS INCOMPATIBLES					[X]
 
 	DE EJECUCIÓN									[ ]
 		SENTENCIA "PARA" CON BUCLE INFINITO					[ ]
@@ -222,7 +222,7 @@ MODOS DE EJECUCIÓN:		[X]							CHECK
 OPCIONALES:				[ ]						CHECK
 -----------------------------------------------------------------
 	OPERADORES UNARIOS (++, --, etc)						[ ]
-	OPERADIRES ARITMETICOS Y ASIGNACION (+:=,-:=)					[ ]
+	OPERADIRES ARITMETICOS Y ASIGNACION (+:=,-:=)					[X]
 
 	SENTENCIA "segun"								[ ]
 		segun(expresión)

@@ -1408,13 +1408,13 @@ void lp::PrintStmt::evaluate()
 	switch(this->_exp->getType())
 	{
 		case NUMBER:
-				std::cout << this->_exp->evaluateNumber() << std::endl;
+				std::cout << this->_exp->evaluateNumber() ;
 				break;
 		case BOOL:
 			if (this->_exp->evaluateBool())
-				std::cout << "true" << std::endl;
+				std::cout << "true" ;
 			else
-				std::cout << "false" << std::endl;
+				std::cout << "false" ;
 		
 			break;
 
@@ -1505,9 +1505,6 @@ void lp::ReadStmt::print()
 void lp::ReadStmt::evaluate() 
 {   
 	double value;
-	std::cout << BIYELLOW; 
-	std::cout << "Inserta un valor numérico --> " ;
-	std::cout << RESET; 
 	std::cin >> value;
 
 	/* Get the identifier in the table of symbols as Variable */
@@ -1691,9 +1688,27 @@ void lp::DoWhileStmt::evaluate()
 ///////////////////////////////////////////////////////////////////////////////////////////////
 void lp::ForStmt::evaluatePaso(){
 	if(_paso==NULL) return;
-/*	switch(_paso->getType()){
-	   case NUMBER:*/
-		
+   	lp::VariableNode *var = new lp::VariableNode(this->_id);
+
+	switch(_paso->getType()){
+	   case NUMBER:{
+		PlusNode* sum=new lp::PlusNode(var,_paso);
+		lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,sum);
+    		asgm->evaluate();
+		break;
+	   }
+	    case BOOL:{
+		lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,_paso);
+    		asgm->evaluate();
+		break;
+	   }
+	    case CHAIN:{
+		ConcatenationNode* sum=new lp::ConcatenationNode(var,_paso);
+		lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,sum);
+    		asgm->evaluate();
+		break;
+	   }
+	}	
 }
 
 void lp::ForStmt::print() 
@@ -1716,35 +1731,40 @@ void lp::ForStmt::evaluate()
    switch(this->_hasta->getType()){
 	case NUMBER:{
 	  if(var->getType()==NUMBER&&(_paso->getType()==NUMBER||_paso==NULL)){
-  	  	for(;var->evaluateNumber()!=this->_hasta->evaluateNumber();){
+
+  	  for(;var->evaluateNumber()!=this->_hasta->evaluateNumber();evaluatePaso()){
 	  	  this->_stmt->evaluate();
    	 	 }
+ 	    this->_stmt->evaluate();
 	  }
 	  else		
 	   warning("Runtime error: Las expresiones comparadas son de distinto tipo en:", "para");
+	  break;
 	}
 	case CHAIN:{
 	  if(var->getType()==CHAIN &&(_paso->getType()==CHAIN||_paso==NULL)){
-  	  	for(;var->evaluateString()!=this->_hasta->evaluateString();){
+  	  	for(;var->evaluateString()!=this->_hasta->evaluateString();evaluatePaso()){
 	  	  this->_stmt->evaluate();
    	 	 }
+		this->_stmt->evaluate();
 	  }
 	  else		
 	   warning("Runtime error: Las expresiones comparadas son de distinto tipo en:", "para");
+	  break;
         }
 	case BOOL:{
 	  if(var->getType()==BOOL &&(_paso->getType()==BOOL||_paso==NULL)){
-  	  	for(;var->evaluateBool()!=this->_hasta->evaluateBool();){
+  	  	for(;var->evaluateBool()!=this->_hasta->evaluateBool();evaluatePaso()){
 	  	  this->_stmt->evaluate();
    	 	 }
 	  }
 	  else		
 	   warning("Runtime error: Las expresiones comparadas son de distinto tipo en:", "para");
+	  break;
 	}
      }
-  // the body is run while the condition is true
-  
 
+  
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

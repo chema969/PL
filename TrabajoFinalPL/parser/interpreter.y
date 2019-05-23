@@ -170,7 +170,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
 
 /* NEW in example 7 */
-%right ASSIGNMENT
+%right ASSIGNMENT PLUS_ASSIGNMENT MINUS_ASSIGNMENT
 
 /* NEW in example 14 */
 %token COMMA
@@ -371,11 +371,11 @@ do_while: DO stmt UNTIL cond
 
 for: FOR VARIABLE FROM exp UNTIL exp DO_IT stmt ENDFOR
 	{
-		
+		$$= new lp::ForStmt($2,$4,$6,$8);
 	}
 	|FOR VARIABLE FROM exp UNTIL exp STEP exp DO_IT stmt ENDFOR
 	{
-		$$= new lp::ForStmt($2,$4,$6,$8,$10);
+		$$= new lp::ForStmt($2,$4,$6,$10,$8);
 	}
 ;
 	/*  NEW in example 17 */
@@ -398,6 +398,16 @@ asgn:   VARIABLE ASSIGNMENT exp
 			$$ = new lp::AssignmentStmt($1, (lp::AssignmentStmt *) $3);
 		}
 
+	|  VARIABLE PLUS_ASSIGNMENT exp 
+		{ 
+			// Create a new assignment node
+			$$ = new lp::AssignmentStmt($1,new lp::PlusNode(new lp::VariableNode($1), $3));
+		}
+	|  VARIABLE MINUS_ASSIGNMENT exp 
+		{ 
+			// Create a new assignment node
+			$$ = new lp::AssignmentStmt($1,new lp::MinusNode(new lp::VariableNode($1), $3));
+		}
 	   /* NEW in example 11 */ 
 	| CONSTANT ASSIGNMENT exp 
 		{   
