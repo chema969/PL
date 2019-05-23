@@ -2085,7 +2085,11 @@ class ForStmt : public Statement
   ExpNode * _hasta; //!< Condicion of the for statement
   ExpNode * _paso; //!< Condicion of the for statement
   Statement *_stmt; //!< Statement of the body of the for loop
-
+/*!
+	\brief   Evalua la funcion paso
+	\return  void
+*/
+  void evaluatePaso();
   public:
 /*!		
 	\brief Constructor of  ForStmt
