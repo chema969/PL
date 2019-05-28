@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string>
 #include <list>
-
+#include <limits> 
 // Para usar la funciones pow y std::abs
 #include <cmath>
 
@@ -1506,7 +1506,13 @@ void lp::ReadStmt::evaluate()
 {   
 	double value;
 	std::cin >> value;
-
+	
+	if(!std::cin){
+	  warning("Runtime error: Valor no numerico introducido en:", "leer");
+	  std::cin.clear(); // reset failbit
+  	  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+	  return;
+	}
 	/* Get the identifier in the table of symbols as Variable */
 	lp::Variable *var = (lp::Variable *) table.getSymbol(this->_id);
 
@@ -1687,28 +1693,22 @@ void lp::DoWhileStmt::evaluate()
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 void lp::ForStmt::evaluatePaso(){
-	if(_paso==NULL) return;
    	lp::VariableNode *var = new lp::VariableNode(this->_id);
 
-	switch(_paso->getType()){
-	   case NUMBER:{
-		PlusNode* sum=new lp::PlusNode(var,_paso);
-		lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,sum);
-    		asgm->evaluate();
-		break;
-	   }
-	    case BOOL:{
-		lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,_paso);
-    		asgm->evaluate();
-		break;
-	   }
-	    case CHAIN:{
-		ConcatenationNode* sum=new lp::ConcatenationNode(var,_paso);
-		lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,sum);
-    		asgm->evaluate();
-		break;
-	   }
-	}	
+	if(_paso->getType()==NUMBER){
+	   PlusNode* sum=new lp::PlusNode(var,_paso);
+	   lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,sum);
+    	   asgm->evaluate();
+	  }
+	 else{ warning("Runtime error: Las expresiones comparadas son de distinto tipo en:", "para");}
+		
+}
+
+bool lp::ForStmt::infinite(){
+   	lp::VariableNode *var = new lp::VariableNode(this->_id);	
+	if(var->evaluateNumber()< this->_hasta->evaluateNumber() && this->_paso->evaluateNumber()<0) return true;
+	if(var->evaluateNumber()>this->_hasta->evaluateNumber() && this->_paso->evaluateNumber()>0) return true;
+	return false;
 }
 
 void lp::ForStmt::print() 
@@ -1721,48 +1721,34 @@ void lp::ForStmt::print()
 
 void lp::ForStmt::evaluate() 
 {
-
-
-
-    lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,_desde);
-    asgm->evaluate();
+    if(this->_desde->getType()==NUMBER){
+   	 lp::AssignmentStmt* asgm= new lp::AssignmentStmt(_id,_desde);
+    	asgm->evaluate();
+    }
+    else{
+	warning("Runtime error: Los bucles para solo evaluan variables numericas en:", "para"); 
+	return;
+    }
 
    lp::VariableNode *var = new lp::VariableNode(this->_id);
-   switch(this->_hasta->getType()){
-	case NUMBER:{
-	  if(var->getType()==NUMBER&&(_paso->getType()==NUMBER||_paso==NULL)){
-
+   if(this->_hasta->getType()==NUMBER&&this->_paso->getType()==NUMBER){
+	if(!infinite()){
   	  for(;var->evaluateNumber()!=this->_hasta->evaluateNumber();evaluatePaso()){
 	  	  this->_stmt->evaluate();
    	 	 }
  	    this->_stmt->evaluate();
-	  }
-	  else		
-	   warning("Runtime error: Las expresiones comparadas son de distinto tipo en:", "para");
-	  break;
 	}
-	case CHAIN:{
-	  if(var->getType()==CHAIN &&(_paso->getType()==CHAIN||_paso==NULL)){
-  	  	for(;var->evaluateString()!=this->_hasta->evaluateString();evaluatePaso()){
-	  	  this->_stmt->evaluate();
-   	 	 }
-		this->_stmt->evaluate();
-	  }
-	  else		
-	   warning("Runtime error: Las expresiones comparadas son de distinto tipo en:", "para");
-	  break;
+	else {
+     		warning("Runtime error:Bucle infinito en:", "para");
+     		return;
+	}
+	}
+    
+   else{		
+     warning("Runtime error: Las expresiones comparadas son de distinto tipo en:", "para");
+     return;
         }
-	case BOOL:{
-	  if(var->getType()==BOOL &&(_paso->getType()==BOOL||_paso==NULL)){
-  	  	for(;var->evaluateBool()!=this->_hasta->evaluateBool();evaluatePaso()){
-	  	  this->_stmt->evaluate();
-   	 	 }
-	  }
-	  else		
-	   warning("Runtime error: Las expresiones comparadas son de distinto tipo en:", "para");
-	  break;
-	}
-     }
+
 
   
 }

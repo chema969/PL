@@ -1678,7 +1678,8 @@ class BorrarStmt: public Statement
 class LugarStmt: public Statement 
 {
  private:
-ExpNode *_fila, *_columna;
+ExpNode *_fila;//!< Fila donde se colocará el cursor
+ExpNode *_columna;//!< Columna donde se colocará el cursor
  public:
 /*!		
 	\brief Constructor of LugarStmt 
@@ -2090,6 +2091,12 @@ class ForStmt : public Statement
 	\return  void
 */
   void evaluatePaso();
+
+/*!
+	\brief   Evalua si es un bucle infinito
+	\return  true si es infinito, false si no
+*/
+  bool infinite();
   public:
 /*!		
 	\brief Constructor of  ForStmt
@@ -2097,9 +2104,10 @@ class ForStmt : public Statement
 	\param desde: Iniciacion of the loop 
 	\param hasta: Condicion of the loop 
 	\param statement: Statement of the body of the loop 
+	\param paso: Paso que se va a hacer
 	\post  A new ForStmt is created with the parameters
 */
-  ForStmt(std::string id,ExpNode *desde, ExpNode *hasta,Statement *statement,  ExpNode * paso=NULL)
+  ForStmt(std::string id,ExpNode *desde, ExpNode *hasta,Statement *statement,  ExpNode * paso=new lp::NumberNode(1))
 	{
 		this->_id = id;
 		this->_desde = desde;

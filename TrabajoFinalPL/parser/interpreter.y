@@ -150,7 +150,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print print_chain read read_chain if while do_while for block borrar lugar 
+%type <st> stmt asgn print print_chain read read_chain if while do_while for block borrar lugar  modification_unary
 
 %type <prog> program
 
@@ -202,7 +202,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /*******************************************************/
 
 /* MODIFIED in example 3 */
-%left PLUS MINUS 
+%left PLUS MINUS PLUSPLUS MINUSMINUS
 
 /* MODIFIED in example 5 */
 %left MULTIPLICATION DIVISION MODULO DIVISION_ENTERA CONCATENACION
@@ -301,6 +301,10 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 	  {
 		// Default action
 		// $$ = $1;
+	  }
+	| modification_unary SEMICOLON
+	  {
+
 	  }
 	/*  NEW in example 17 */
 	| if 
@@ -655,6 +659,17 @@ exp:	NUMBER
 		}
 ;
 
+modification_unary:
+
+	VARIABLE PLUSPLUS
+	{ 
+	  $$=new lp::AssignmentStmt($1,new lp::PlusNode(new lp::VariableNode($1), new lp::NumberNode(1)));
+	}
+	| VARIABLE MINUSMINUS
+	{ 
+	  $$=new lp::AssignmentStmt($1,new lp::MinusNode(new lp::VariableNode($1), new lp::NumberNode(1)));
+	}
+;
 
 listOfExp: 
 			/* Empty list of numeric expressions */

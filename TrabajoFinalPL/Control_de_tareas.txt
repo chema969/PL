@@ -198,19 +198,19 @@ CONTROL DE ERRORES:		[ ]							CHECK
 		NUMERO MAL ESCRITO							[X]
 		OTROS									[X]
 
-	SINTÁCTICOS									[ ]
-		SENTENCIA DE CONTROL MAL ESCRITA					[ ]
-		SENTENCIA CON ARGUMENTOS INCOMPATIBLES					[ ]
+	SINTÁCTICOS									[X]
+		SENTENCIA DE CONTROL MAL ESCRITA					[X]
+		SENTENCIA CON ARGUMENTOS INCOMPATIBLES					[X]
 		OTROS									[ ]
 
 	SEMÁNTICOS									[X]
 		ARGUMENTOS U OPERANDOS INCOMPATIBLES					[X]
 
-	DE EJECUCIÓN									[ ]
-		SENTENCIA "PARA" CON BUCLE INFINITO					[ ]
-		FICHERO INEXISTENTE							[ ]
-		FICHERO CON EXTENSIÓN INCORRECTA					[ ]
-		OTROS									[ ]
+	DE EJECUCIÓN									[X]
+		SENTENCIA "PARA" CON BUCLE INFINITO					[X]
+		FICHERO INEXISTENTE							[X]
+		FICHERO CON EXTENSIÓN INCORRECTA					[X]
+		OTROS									[X]
 
 -----------------------------------------------------------------
 MODOS DE EJECUCIÓN:		[X]							CHECK
@@ -221,7 +221,7 @@ MODOS DE EJECUCIÓN:		[X]							CHECK
 -----------------------------------------------------------------
 OPCIONALES:				[ ]						CHECK
 -----------------------------------------------------------------
-	OPERADORES UNARIOS (++, --, etc)						[ ]
+	OPERADORES UNARIOS (++, --, etc)						[X]
 	OPERADIRES ARITMETICOS Y ASIGNACION (+:=,-:=)					[X]
 
 	SENTENCIA "segun"								[ ]

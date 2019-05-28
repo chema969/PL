@@ -45,7 +45,7 @@ extern lp::Table table; //!< External Table of Symbols
 
 extern int lineNumber; //!< External line counter
 
-std::string str;
+std::string str;//!< Para guardar las cadenas
 
 %}
 
@@ -75,6 +75,7 @@ IDENTIFIER  {LETTER}((_)?({LETTER}|{DIGIT})+)*
 ERRORIDENTIFIER1  {LETTER}((_)?({LETTER}|{DIGIT})+)*_+
 
 ERRORIDENTIFIER2  {LETTER}({LETTER}|{DIGIT})*(__+({LETTER}|{DIGIT})*)+
+
 
 /* NEW in example 3 */
 /* STATE  */
@@ -188,6 +189,10 @@ ERRORIDENTIFIER2  {LETTER}({LETTER}|{DIGIT})*(__+({LETTER}|{DIGIT})*)+
 "-"		{ return MINUS;  } 			/* NEW in example 3 */
 "+"		{ return PLUS;   } 			/* NEW in example 3 */
 
+"++"		{ return PLUSPLUS;}
+
+"--"		{ return MINUSMINUS;}
+
 "+:="		{return PLUS_ASSIGNMENT;}
 
 "-:="		{return MINUS_ASSIGNMENT;}
@@ -228,6 +233,7 @@ ERRORIDENTIFIER2  {LETTER}({LETTER}|{DIGIT})*(__+({LETTER}|{DIGIT})*)+
 "{"		{ return LETFCURLYBRACKET; } 	/* NEW in example 17 */
 
 "}"		{ return RIGHTCURLYBRACKET; }	/* NEW in example 17 */
+
 
 (?i:_borrar)     {return BORRAR;}
 
