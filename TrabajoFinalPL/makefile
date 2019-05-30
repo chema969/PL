@@ -1,4 +1,4 @@
-NAME=interpreter
+NAME=ipe
 
 # Compiler
 CPP = g++
