@@ -1582,6 +1582,8 @@ void lp::ReadChainStmt::evaluate()
 
 		table.installSymbol(n);
 	}
+ 	std::cin.clear(); // reset failbit
+  	  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
 }
 
 

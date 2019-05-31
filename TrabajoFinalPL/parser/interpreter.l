@@ -101,7 +101,9 @@ ERRORIDENTIFIER2  {LETTER}({LETTER}|{DIGIT})*(__+({LETTER}|{DIGIT})*)+
 
 <COMENTARIO>.		{;}
 
-<COMENTARIO>[ \t\n]	{;}
+<COMENTARIO>[ \t]	{;}
+
+<COMENTARIO>[\n]	{           	lineNumber++; }
 
 ";"		{
 			/* NEW in example 5 */

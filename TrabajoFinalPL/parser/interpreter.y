@@ -150,7 +150,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print print_chain read read_chain if while do_while for block borrar lugar  modification_unary
+%type <st> stmt asgn print print_chain read read_chain if while do_while for block borrar lugar  modification_unary while_block do_while_block for_block
 
 %type <prog> program
 
@@ -342,44 +342,68 @@ block: LETFCURLYBRACKET stmtlist RIGHTCURLYBRACKET
 			$$ = new lp::BlockStmt($2); 
 		}
 ;
- 
+
+while_block: DO_IT stmtlist ENDWHILE
+		{
+			// Create a new block of statements node
+			$$ = new lp::BlockStmt($2); 
+		}
+;
+
+do_while_block:DO stmtlist UNTIL
+		{
+			// Create a new block of statements node
+			$$ = new lp::BlockStmt($2); 
+		}
+;
+
+for_block: DO_IT stmtlist ENDFOR
+		{
+			// Create a new block of statements node
+			$$ = new lp::BlockStmt($2); 
+		}
+;
+
+
+
 	/*  NEW in example 17 */
 if:	/* Simple conditional statement */
-	IF cond THEN stmt ENDIF
+	IF cond THEN stmtlist ENDIF
     {
+
 		// Create a new if statement node
-		$$ = new lp::IfStmt($2, $4);
+		$$ = new lp::IfStmt($2, new lp::BlockStmt($4) );
 	}
 
 	/* Compound conditional statement */
-	| IF cond THEN stmt  ELSE stmt ENDIF
+	| IF cond THEN stmtlist  ELSE stmtlist ENDIF
 	 {
 		// Create a new if statement node
-		$$ = new lp::IfStmt($2, $4, $6);
+		$$ = new lp::IfStmt($2,new lp::BlockStmt($4), new lp::BlockStmt($6));
 	 }
 ;
 
 	/*  NEW in example 17 */
-while:  WHILE cond DO_IT stmt ENDWHILE
+while:  WHILE cond while_block
 		{
 			// Create a new while statement node
-			$$ = new lp::WhileStmt($2, $4);
+			$$ = new lp::WhileStmt($2, $3);
         }
 ;
 
-do_while: DO stmt UNTIL cond
+do_while: do_while_block cond
 	{
-		$$ = new lp::DoWhileStmt($2, $4);
+		$$ = new lp::DoWhileStmt($1, $2);
 	}
 ;
 
-for: FOR VARIABLE FROM exp UNTIL exp DO_IT stmt ENDFOR
+for: FOR VARIABLE FROM exp UNTIL exp for_block
 	{
-		$$= new lp::ForStmt($2,$4,$6,$8);
+		$$= new lp::ForStmt($2,$4,$6,$7);
 	}
-	|FOR VARIABLE FROM exp UNTIL exp STEP exp DO_IT stmt ENDFOR
+	|FOR VARIABLE FROM exp UNTIL exp STEP exp for_block
 	{
-		$$= new lp::ForStmt($2,$4,$6,$10,$8);
+		$$= new lp::ForStmt($2,$4,$6,$9,$8);
 	}
 ;
 	/*  NEW in example 17 */
