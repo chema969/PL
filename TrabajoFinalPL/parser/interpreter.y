@@ -150,7 +150,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print print_chain read read_chain if while do_while for block borrar lugar  modification_unary while_block do_while_block for_block
+%type <st> stmt asgn print print_chain read read_chain if while do_while for block borrar lugar  modification_unary while_block do_while_block for_block esperar
 
 %type <prog> program
 
@@ -164,7 +164,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /*******************************************/
 
 // NEW in example 17: IF, ELSE, WHILE 
-%token PRINT PRINT_CHAIN READ READ_CHAIN IF THEN ELSE ENDIF WHILE DO_IT ENDWHILE DO UNTIL FOR FROM STEP ENDFOR BORRAR LUGAR
+%token PRINT PRINT_CHAIN READ READ_CHAIN IF THEN ELSE ENDIF WHILE DO_IT ENDWHILE DO UNTIL FOR FROM STEP ENDFOR BORRAR LUGAR ESPERAR
 
 // NEW in example 17
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
@@ -296,6 +296,10 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 	  {
 		// Default action
 		// $$ = $1;
+	  }
+	| esperar SEMICOLON
+	  {
+
 	  }
 	| lugar SEMICOLON
 	  {
@@ -448,6 +452,11 @@ asgn:   VARIABLE ASSIGNMENT exp
 		}
 ;
 
+esperar: ESPERAR
+	{
+	$$= new lp::EsperarStmt();
+	}
+;
 print_chain:  PRINT_CHAIN exp 
 		{
 			// Create a new print node

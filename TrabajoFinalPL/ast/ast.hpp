@@ -1669,6 +1669,43 @@ class BorrarStmt: public Statement
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /*!	
+  \class   EsperarStmt
+  \brief   Definition of atributes and methods of BorrarStmt class
+  \note    EsperarStmt Class publicly inherits from Statement class 
+		   and adds its own print and evaluate functions
+  \warning  In this class, print and evaluate functions have the same meaning.
+*/
+class EsperarStmt: public Statement 
+{
+
+ public:
+/*!		
+	\brief Constructor of EsperarStmt 
+	\post  A new EsperarStmt is created 
+*/
+  EsperarStmt()
+	{
+	}
+
+/*!
+	\brief   Print the EsperarStmt
+	\return  void
+	\sa		 evaluate()
+*/
+  void print();
+
+/*!	
+	\brief   Evaluate the EsperarStmt
+	\return  double
+	\sa		 print
+*/
+  void evaluate();
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/*!	
   \class   LugarStmt
   \brief   Definition of atributes and methods of LugarStmt class
   \note    LugarStmt Class publicly inherits from Statement class 

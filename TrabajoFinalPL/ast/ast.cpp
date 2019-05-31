@@ -1005,7 +1005,7 @@ bool lp::NotEqualNode::evaluateBool()
 		rightNumber = this->_right->evaluateNumber();
 
 		// ERROR_BOUND to control the precision of real numbers
-		result = std::abs( (leftNumber - rightNumber) >= ERROR_BOUND );
+		result = std::abs( (leftNumber - rightNumber) ) >= ERROR_BOUND ;
 	}
 	else if(this->getType() == BOOL and this->_left->getType()==CHAIN and this->_right->getType()==CHAIN )
 	{
@@ -1463,6 +1463,22 @@ void lp::BorrarStmt::print()
 void lp::BorrarStmt::evaluate() 
 {
   std::cout << CLEAR_SCREEN;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::EsperarStmt::print() 
+{
+  std::cout << "EsperarStmt";
+}
+
+
+
+void lp::EsperarStmt::evaluate() 
+{
+  std::cin.ignore();
+  std::cin.ignore();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
