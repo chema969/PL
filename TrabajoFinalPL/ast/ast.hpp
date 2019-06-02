@@ -1785,9 +1785,9 @@ class PrintStmt: public Statement
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /*!	
-  \class   PrintStmt
+  \class   PrintChainStmt
   \brief   Definition of atributes and methods of PrintStmt class
-  \note    PrintStmt Class publicly inherits from Statement class 
+  \note    PrintChainStmt Class publicly inherits from Statement class 
 		   and adds its own print and evaluate functions
   \warning  In this class, print and evaluate functions have the same meaning.
 */
@@ -1798,7 +1798,7 @@ class PrintChainStmt: public Statement
 
  public:
 /*!		
-	\brief Constructor of PrintStmt 
+	\brief Constructor of PrintChainStmt 
 	\param expression: pointer to ExpNode
 	\post  A new PrintStmt is created with the parameter
 */
@@ -1808,14 +1808,14 @@ class PrintChainStmt: public Statement
 	}
 
 /*!
-	\brief   Print the PrintStmt
+	\brief   Print the PrintChainStmt
 	\return  void
 	\sa		 evaluate()
 */
   void print();
 
 /*!	
-	\brief   Evaluate the PrintStmt
+	\brief   Evaluate the PrintChainStmt
 	\return  double
 	\sa		 print
 */

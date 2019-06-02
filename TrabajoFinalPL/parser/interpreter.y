@@ -374,9 +374,9 @@ for_block: DO_IT stmtlist ENDFOR
 if:	/* Simple conditional statement */
 	IF cond THEN stmtlist ENDIF
     {
-
+		lp::BlockStmt *block=new lp::BlockStmt($4);
 		// Create a new if statement node
-		$$ = new lp::IfStmt($2, new lp::BlockStmt($4) );
+		$$ = new lp::IfStmt($2,block  );
 	}
 
 	/* Compound conditional statement */
@@ -696,11 +696,17 @@ modification_unary:
 
 	VARIABLE PLUSPLUS
 	{ 
-	  $$=new lp::AssignmentStmt($1,new lp::PlusNode(new lp::VariableNode($1), new lp::NumberNode(1)));
+          lp::VariableNode *var= new lp::VariableNode($1);
+         lp::NumberNode *plusone= new lp::NumberNode(1);
+           lp::PlusNode *plus= new lp::PlusNode(var,plusone );
+	  $$=new lp::AssignmentStmt($1,plus);
 	}
 	| VARIABLE MINUSMINUS
 	{ 
-	  $$=new lp::AssignmentStmt($1,new lp::MinusNode(new lp::VariableNode($1), new lp::NumberNode(1)));
+          lp::VariableNode *var= new lp::VariableNode($1);
+         lp::NumberNode *minusone= new lp::NumberNode(1);
+           lp::MinusNode *minus= new lp::MinusNode(var,minusone );
+	  $$=new lp::AssignmentStmt($1,minus);
 	}
 ;
 
